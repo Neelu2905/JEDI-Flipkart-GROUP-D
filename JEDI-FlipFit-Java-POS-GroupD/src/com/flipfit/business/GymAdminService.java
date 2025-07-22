@@ -1,4 +1,5 @@
 package com.flipfit.business;
+import com.flipfit.beans.GymAdmin;
 
 public class GymAdminService {
     public void approveGym(Long approvalId){
