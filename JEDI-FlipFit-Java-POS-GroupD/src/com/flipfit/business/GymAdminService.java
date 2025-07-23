@@ -9,6 +9,9 @@ public class GymAdminService {
     }
     public void viewRegisteredGyms(){
     }
+    public void addGymOwners(long userId, String name, String email){}
+    public void checkPaymentStatus(){
+    }
     public List<GymCustomer> viewRegisteredGymCustomers(){
         return null;
     }
