@@ -6,9 +6,8 @@ import com.flipfit.beans.GymCustomer;
 import com.flipfit.business.GymCustomerService;
 
 
-public class GymCustomerClient {
-
-    public static void customerMenu() {
+public class GymCustomerClient implements GymClient {
+    public static void Menu() {
 
         GymCustomerService customerService = new GymCustomerService();
         GymCustomer customer = new GymCustomer();
