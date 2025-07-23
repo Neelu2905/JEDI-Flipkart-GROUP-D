@@ -5,5 +5,5 @@ public interface GymUser {
   void setName(String name);
   String getName();
   long getId();
-  
+
 }

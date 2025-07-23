@@ -1,5 +1,7 @@
+package com.flipfit.business;
+
 public class paymentService {
-    public makePayment(){
+    public void makePayment(){
 
     }
 
