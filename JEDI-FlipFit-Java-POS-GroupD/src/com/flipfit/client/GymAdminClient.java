@@ -1,45 +1,35 @@
-/**
- *
- */
+git
 package com.flipfit.client;
 
 import java.util.List;
 import java.util.Scanner;
 
-// Import necessary bean classes
-import com.flipfit.beans.GymAdmin; // Assuming you have a GymAdmin bean if needed for profile
+
+import com.flipfit.beans.GymAdmin;
 import com.flipfit.beans.GymCentre;
 import com.flipfit.beans.GymCustomer;
 import com.flipfit.beans.GymOwner;
-// Might be needed for adding/removing owners, depending on logic
 
-// Import the service class you're interacting with
-import com.flipfit.business.GymAdminService; // Corrected to GymAdminService
 
-/**
- *
- */
+
+import com.flipfit.business.GymAdminService;
+
+
 public class GymAdminClient {
 
-    // An instance of the service class to call its methods
-    private GymAdminService gymAdminService = new GymAdminService(); // Instantiate the service
 
-    /**
-     * Approves a gym centre based on its approval ID.
-     * @param in Scanner object for input.
-     */
+    private GymAdminService gymAdminService = new GymAdminService();
+
+
     public void approveGym(Scanner in) {
         System.out.println("\n--- Approve Gym Centre ---");
         System.out.print("Enter the Gym Approval ID to approve: ");
-        Long approvalId = in.nextLong(); // Assuming approvalId is a Long
-        GymAdminService.approveGym(approvalId); // Call static method directly
+        Long approvalId = in.nextLong();
+        GymAdminService.approveGym(approvalId);
         System.out.println("Gym with Approval ID " + approvalId + " approved successfully.");
     }
 
-    /**
-     * Cancels approval for a gym centre.
-     * @param in Scanner object for input.
-     */
+
     public void cancelApproval(Scanner in) {
         System.out.println("\n Cancel Gym Approval");
         System.out.print("Enter the Gym Approval ID to cancel approval for: ");
@@ -48,9 +38,7 @@ public class GymAdminClient {
         System.out.println("Approval for Gym with ID " + approvalId + " cancelled.");
     }
 
-    /**
-     * Views all registered gym centres.
-     */
+
     public void viewRegisteredGyms() {
         System.out.println("\n Registered Gym Centres ");
         List<GymCentre> gymDetails = gymAdminService.viewRegisteredGyms();
@@ -71,9 +59,7 @@ public class GymAdminClient {
 
     }
 
-    /**
-     * Views all registered gym customers.
-     */
+
     public void viewRegisteredGymCustomers() {
         System.out.println("\n Registered Gym Customers");
         List<GymCustomer> customerDetails = gymAdminService.viewRegisteredGymCustomers();
@@ -86,18 +72,14 @@ public class GymAdminClient {
 
         for (GymCustomer customer : customerDetails) {
             System.out.printf("%-10d %-25s %-20s%n",
-                    customer.getUserId(), // Assuming getCustomerId() returns int or long
+                    customer.getUserId(),
                     customer.getName(),
-                    customer.getEmail()); // Assuming getName() and getEmail()
+                    customer.getEmail());
         }
 
     }
 
-    /**
-     * Adds a gym owner. This method would likely involve collecting owner details.
-     * For now, it's a placeholder.
-     * @param in Scanner object for input.
-     */
+
     public void addGymOwner(Scanner in) {
         System.out.println("\n--- Add New Gym Owner ---");
         // In a real application, you'd collect details like name, email, password, etc.
@@ -105,10 +87,7 @@ public class GymAdminClient {
         System.out.println("Gym owner addition initiated. (Further details/confirmation needed)");
     }
 
-    /**
-     * Removes a gym owner by ID.
-     * @param in Scanner object for input.
-     */
+
     public void removeGymOwner(Scanner in) {
         System.out.println("\n Remove Gym Owner");
         System.out.print("Enter the Gym Owner ID to remove: ");
@@ -117,10 +96,7 @@ public class GymAdminClient {
         System.out.println("Gym owner with ID " + gymOwnerId + " removed.");
     }
 
-    /**
-     * Removes a gym customer by ID.
-     * @param in Scanner object for input.
-     */
+
     public void removeGymCustomer(Scanner in) {
         System.out.println("\n Remove Gym Customer");
         System.out.print("Enter the Gym Customer ID to remove: ");
@@ -129,10 +105,7 @@ public class GymAdminClient {
         System.out.println("Gym customer with ID " + gymCustomerId + " removed.");
     }
 
-    /**
-     * Removes a gym by ID.
-     * @param in Scanner object for input.
-     */
+
     public void removeGym(Scanner in) {
         System.out.println("\n Remove Gym Centre");
         System.out.print("Enter the Gym Centre ID to remove: ");
@@ -141,11 +114,7 @@ public class GymAdminClient {
         System.out.println("Gym centre with ID " + gymId + " removed.");
     }
 
-    /**
-     * Displays the Gym Admin menu and handles user choices.
-     * @param in Scanner object for input.
-     * @throws Exception For handling potential exceptions (e.g., from GymApplicationClient.mainPage())
-     */
+
     public void GymAdminPage(Scanner in) throws Exception {
         while (true) {
             System.out.println("\n--- Gym Admin Menu ---");
@@ -175,7 +144,7 @@ public class GymAdminClient {
                     viewRegisteredGymCustomers();
                     break;
                 case 5:
-                    addGymOwner(in); // Might require more input or specific GymOwner object
+                    addGymOwner(in);
                     break;
                 case 6:
                     removeGymOwner(in);
@@ -193,8 +162,7 @@ public class GymAdminClient {
         }
     }
 
-    // You might also want a static main method or an entry point for testing the client
-    // For example, if you want to call this from another main method.
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         GymAdminClient client = new GymAdminClient();
@@ -202,7 +170,7 @@ public class GymAdminClient {
             client.GymAdminPage(scanner);
         } catch (Exception e) {
             System.err.println("An error occurred: " + e.getMessage());
-            //e.printStackTrace();
+
         } finally {
             scanner.close();
         }
