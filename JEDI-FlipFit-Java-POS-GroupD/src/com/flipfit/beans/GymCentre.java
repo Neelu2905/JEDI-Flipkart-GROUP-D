@@ -3,19 +3,19 @@ package com.flipfit.beans;
 import java.util.List;
 
 public class GymCentre {
-    private Long id;
+    private Long gymid;
     private String name;
     private String address;
     private String GSTIN;
     private int equipments;
     private List<Slot> slotList;
 
-    public Long getId() {
-        return id;
+    public Long getGymId() {
+        return gymid;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.gymid = id;
     }
 
     public String getName() {
