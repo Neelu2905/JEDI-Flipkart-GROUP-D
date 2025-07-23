@@ -16,20 +16,21 @@ public class GymOwnerClient implements GymClient {
         GymOwner gymOwner = new GymOwner();
         GymUserService gymUserService = new GymUserService();
         int option=0;
-        while(option!=6) {
+        while(option!=7) {
             Scanner in = new Scanner(System.in);
 
             System.out.println("--- Gym Owner Menu ---");
             System.out.println("1.Gym Centre Registration");
-            System.out.println("2.Edit Slots");
-            System.out.println("3.View Registered Gyms");
-            System.out.println("4.View Registered and Free Slots");
-            System.out.println("5.Edit Profile");
-            System.out.println("6.Logout");
+            System.out.println("2.Add Slots");
+            System.out.println("3.Edit Slots");
+            System.out.println("4.View Registered Gyms");
+            System.out.println("5.View Booked and Available Slots");
+            System.out.println("6.Edit Profile");
+            System.out.println("7.Logout");
             System.out.print("Enter your choice: ");
             option = in.nextInt();
             in.nextLine();
-
+            int gymCenterId;
 
             switch (option) {
                 case 1:
@@ -37,21 +38,27 @@ public class GymOwnerClient implements GymClient {
                     System.out.println("Option 1: Gym Centre Registration - (Not implemented)");
                     break;
                 case 2:
+                    System.out.println("Option 2: Add Slots");
+                    System.out.println("Enter Gym Centre Id:");
+                    gymCenterId = in.nextInt(); // Use 'in' scanner
+                    in.nextLine(); // Consume newline after nextInt()
+                    System.out.println("Entered Gym Centre Id for adding slots: " + gymCenterId);
+                case 3:
                     System.out.println("Option 2: Edit Slots");
                     System.out.println("Enter Gym Centre Id:");
-                    int gymCenterId = in.nextInt(); // Use 'in' scanner
+                    gymCenterId = in.nextInt(); // Use 'in' scanner
                     in.nextLine(); // Consume newline after nextInt()
                     System.out.println("Entered Gym Centre Id for editing slots: " + gymCenterId);
                     break;
-                case 3:
+                case 4:
                     System.out.println("Option 3: View Registered Gyms - (Not implemented)");
                     // Returns a list of registered gyms by the gym owner
                     break;
-                case 4:
+                case 5:
                     System.out.println("Option 4: View Registered and Free Slots - (Not implemented)");
                     // Returns a list of registered and free slots
                     break;
-                case 5:
+                case 6:
                     // Edit profile
                     System.out.println("Option 5: Edit Profile");
                     System.out.println("1. Edit name");
@@ -74,7 +81,7 @@ public class GymOwnerClient implements GymClient {
                     }
 
                     break;
-                case 6:
+                case 7:
                     System.out.println("Logging Out. Goodbye!");
                     break;
                 default:
