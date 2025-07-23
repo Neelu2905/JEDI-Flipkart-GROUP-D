@@ -36,13 +36,13 @@ public class GymAdminClient implements GymClient {
             case 1:
 
                 System.out.print("Approving Gym Owner: ");
-                Long approvalId = in.nextLong();
+                long approvalId = in.nextLong();
                 gymAdminService.approveGym(approvalId);
                 break;
             case 2:
 
                 System.out.println("Cancelled approval");
-                Long Id = in.nextLong();
+                long Id = in.nextLong();
                 gymAdminService.cancelApproval(Id);
                 break;
             case 3:
