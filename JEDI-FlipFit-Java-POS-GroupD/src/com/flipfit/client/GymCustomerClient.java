@@ -7,7 +7,7 @@ import com.flipfit.business.GymCustomerService;
 
 
 public class GymCustomerClient implements GymClient {
-    public static void Menu() {
+    public void Menu() {
 
         GymCustomerService customerService = new GymCustomerService();
         GymCustomer customer = new GymCustomer();
