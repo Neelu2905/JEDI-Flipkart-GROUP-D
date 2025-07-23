@@ -34,7 +34,7 @@ public class GymOwnerClient implements GymClient {
         option = in.nextInt();
         in.nextLine();
 
-        switch(option){
+        switch(option) {
             case 1:
                 // Registers a Gym Centre
                 System.out.println("Option 1: Gym Centre Registration - (Not implemented)");
@@ -62,14 +62,14 @@ public class GymOwnerClient implements GymClient {
 
                 int subOption = in.nextInt();
 
-                if(subOption == 1) {
+                if (subOption == 1) {
                     System.out.print("Enter new name: ");
                     String name = in.nextLine();
                     gymOwner.setName(name);
                     System.out.println("Name changed successfully to: " + gymOwner.getName());
                 }
 
-                if(subOption == 2) {
+                if (subOption == 2) {
                     System.out.print("Enter new email: ");
                     String email = in.nextLine();
                     gymOwner.setEmail(email);
@@ -85,6 +85,5 @@ public class GymOwnerClient implements GymClient {
             default:
                 System.out.println("Invalid option");
         }
-        in.close();
     }
 }
