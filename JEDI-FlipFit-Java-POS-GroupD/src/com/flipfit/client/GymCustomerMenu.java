@@ -3,7 +3,7 @@ package com.flipfit.client;
 
 import java.util.Scanner;
 import com.flipfit.beans.GymCustomer;
-import com.flipfit.business.GymCustomerService;
+import com.flipfit.business.impl.GymCustomerService;
 
 
 public class GymCustomerMenu implements GymClient {
