@@ -4,7 +4,6 @@ public class GymCustomer extends GymUser{
 
   private String address;
   private int age;
-  private Enum gender;
 
   public String getAddress() {
     return address;
@@ -29,4 +28,20 @@ public class GymCustomer extends GymUser{
   public void setGender(Enum gender) {
     this.gender = gender;
   }
+
+  public int getCustomerPhone() {
+    return customerPhone;
+  }
+
+  public void setCustomerPhone(int customerPhone) {
+    this.customerPhone = customerPhone;
+  }
+
+  private Enum gender;
+  private int customerPhone;
+
+
+
+
+
 }

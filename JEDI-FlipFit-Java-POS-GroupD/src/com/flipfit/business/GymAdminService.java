@@ -5,7 +5,7 @@ import com.flipfit.beans.GymCustomer;
 
 import java.util.List;
 public class GymAdminService {
-    public void approveGym(Long approvalId){
+    public static void approveGym(Long approvalId){
     }
     public void cancelApproval(Long approvalId){
     }
