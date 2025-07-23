@@ -8,9 +8,9 @@ public class GymClientFactory {
   private static final Map<String, GymClient> gymClientMap = new HashMap<String, GymClient>();
 
   static {
-    gymClientMap.put("admin", new GymAdminClient());
-    gymClientMap.put("customer", new GymCustomerClient());
-    gymClientMap.put("owner",  new GymOwnerClient());
+    gymClientMap.put("admin", new GymAdminMenu());
+    gymClientMap.put("customer", new GymCustomerMenu());
+    gymClientMap.put("owner",  new GymOwnerMenu());
   }
 
   public static GymClient getGymClient(String role) {
