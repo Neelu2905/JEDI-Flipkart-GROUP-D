@@ -1,6 +1,4 @@
 package com.flipfit.business;
-import com.flipfit.beans.GymAdmin;
-import com.flipfit.beans.GymCentre;
 import com.flipfit.beans.GymCustomer;
 
 import java.util.List;
@@ -9,8 +7,7 @@ public class GymAdminService {
     }
     public void cancelApproval(Long approvalId){
     }
-    public List<GymCentre> viewRegisteredGyms(){
-        return null;
+    public void viewRegisteredGyms(){
     }
     public List<GymCustomer> viewRegisteredGymCustomers(){
         return null;

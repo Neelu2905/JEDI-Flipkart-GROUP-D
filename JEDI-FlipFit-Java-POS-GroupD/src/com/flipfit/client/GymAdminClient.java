@@ -9,8 +9,6 @@ import com.flipfit.beans.GymCentre;
 import com.flipfit.beans.GymCustomer;
 import com.flipfit.beans.GymOwner;
 
-
-
 import com.flipfit.business.GymAdminService;
 
 
@@ -36,44 +34,47 @@ public class GymAdminClient implements GymClient {
         int choice = in.nextInt();
         switch (choice) {
             case 1:
-                Long approvalId = in.nextLong();
+
                 System.out.print("Approving Gym Owner: ");
+                long approvalId = in.nextLong();
                 gymAdminService.approveGym(approvalId);
                 break;
             case 2:
-                Long Id = in.nextLong();
-                gymAdminService.cancelApproval(Id);
+
                 System.out.println("Cancelled approval");
+                long Id = in.nextLong();
+                gymAdminService.cancelApproval(Id);
                 break;
             case 3:
-                gymAdminService.viewRegisteredGyms();
                 System.out.println("View registered gyms");
+                gymAdminService.viewRegisteredGyms();
                 break;
             case 4:
-                gymAdminService.viewRegisteredGymCustomers();
                 System.out.println("View registered gym customers");
+                gymAdminService.viewRegisteredGymCustomers();
                 break;
             case 5:
+                System.out.println("Added owner to registered gyms");
                 long id=in.nextLong();
                 String name=in.next();
                 String email=in.next();
                 gymAdminService.addGymOwner(id, name, email);
-                System.out.println("Added owner to registered gyms");
                 break;
             case 6:
+
+                System.out.println("Removed owner from registered gyms");
                 long removeId=in.nextLong();
                 gymAdminService.removeGymOwner(removeId);
-                System.out.println("Removed owner from registered gyms");
                 break;
             case 7:
+                System.out.println("Removed owner from registered gyms");
                 long removeid=in.nextLong();
                 gymAdminService.removeGymCustomer(removeid);
-                System.out.println("Removed owner from registered gyms");
                 break;
             case 8:
+                System.out.println("Removed owner from registered gyms");
                 long removegym=in.nextLong();
                 gymAdminService.removeGym(removegym);
-                System.out.println("Removed owner from registered gyms");
                 break;
 
             default:
