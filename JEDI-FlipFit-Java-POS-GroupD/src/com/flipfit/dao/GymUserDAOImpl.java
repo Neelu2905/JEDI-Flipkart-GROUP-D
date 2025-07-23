@@ -135,22 +135,6 @@ public class GymUserDAOImpl implements GymUserDAO {
   }
 
   /**
-   * Authenticates a user based on email and password.
-   * @param email The email of the user.
-   * @param password The password of the user.
-   * @return The authenticated GymUser object if credentials are valid, otherwise null.
-   */
-  public GymUser authenticateUser(String email, String password) throws UserDoesNotExistsException {
-    GymUser user = getUserByEmail(email);
-    if (user != null && user.getPassword().equals(password)) {
-      System.out.println("User " + user.getName() + " authenticated successfully.");
-      return user;
-    }
-    System.out.println("Authentication failed for email: " + email);
-    return null;
-  }
-
-  /**
    * Adds a new Role to the system.
    * A unique ID is generated for the role.
    * @param role The Role object to add.

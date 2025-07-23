@@ -40,8 +40,4 @@ public class GymCustomer extends GymUser{
   private Enum gender;
   private int customerPhone;
 
-
-
-
-
 }

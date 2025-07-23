@@ -59,4 +59,6 @@ public class GymUser {
     this.email = email;
     this.password = password;
   }
+
+  public GymUser() {}
 }

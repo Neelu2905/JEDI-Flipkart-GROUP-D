@@ -64,15 +64,6 @@ public interface GymUserDAO {
   Collection<GymUser> getAllUsers();
 
   /**
-   * Authenticates a user based on email and password.
-   * @param email The email of the user.
-   * @param password The password of the user.
-   * @return The authenticated GymUser object if credentials are valid, otherwise null.
-   * @throws UserDoesNotExistsException If the user with the given email does not exist.
-   */
-  GymUser authenticateUser(String email, String password) throws UserDoesNotExistsException;
-
-  /**
    * Adds a new Role to the system.
    * A unique ID is generated for the role.
    * @param role The Role object to add.

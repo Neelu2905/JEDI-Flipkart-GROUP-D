@@ -1,13 +1,7 @@
 package com.flipfit.client;
 
 import java.util.Scanner;
-
-
-<<<<<<< HEAD
-import com.flipfit.business.GymAdminService;
-=======
 import com.flipfit.business.impl.GymAdminService;
->>>>>>> refs/remotes/origin/main
 
 
 public class GymAdminMenu implements GymClient {

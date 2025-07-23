@@ -7,7 +7,7 @@ import com.flipfit.helper.PasswordUpdateData;
 import com.flipfit.helper.RegisterData;
 
 public interface GymUserServiceInterface {
-  boolean login(LoginCredentials loginDetails) throws AuthenticationException;
+  void login(LoginCredentials loginDetails) throws AuthenticationException;
 
   boolean registerCustomer(RegisterData regCustomerData) throws RegistrationException;
 
