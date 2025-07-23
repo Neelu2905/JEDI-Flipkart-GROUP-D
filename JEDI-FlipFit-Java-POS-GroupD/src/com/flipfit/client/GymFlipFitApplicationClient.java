@@ -1,6 +1,6 @@
 package com.flipfit.client;
 
-import com.flipfit.business.GymUserService;
+import com.flipfit.business.impl.GymUserService;
 import com.flipfit.constants.Constants;
 import com.flipfit.exceptions.AuthenticationException;
 import com.flipfit.exceptions.RegistrationException;

@@ -1,4 +1,4 @@
-package com.flipfit.business;
+package com.flipfit.business.impl;
 
 import com.flipfit.exceptions.AuthenticationException;
 import com.flipfit.exceptions.RegistrationException;

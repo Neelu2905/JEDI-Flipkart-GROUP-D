@@ -3,7 +3,11 @@ package com.flipfit.client;
 import java.util.Scanner;
 
 
+<<<<<<< HEAD
 import com.flipfit.business.GymAdminService;
+=======
+import com.flipfit.business.impl.GymAdminService;
+>>>>>>> refs/remotes/origin/main
 
 
 public class GymAdminMenu implements GymClient {
@@ -18,13 +22,15 @@ public class GymAdminMenu implements GymClient {
 
             System.out.println("1. Approve Gym Centre");
             System.out.println("2. Cancel Gym Approval");
-            System.out.println("3. View All Registered Gyms");
-            System.out.println("4. View All Registered Gym Customers");
-            System.out.println("5. Add Gym Owner");
-            System.out.println("6. Remove Gym Owner");
-            System.out.println("7. Remove Gym Customer");
-            System.out.println("8. Remove Gym Centre");
-            System.out.println("9. Log out");
+            System.out.println("3. View Registered Gyms");
+            System.out.println("4. View Registered Gym Customers");
+            System.out.println("5. View Registered Gym Owners");
+            System.out.println("6. Add Gym Owner");
+            System.out.println("7. Remove Gym Owner");
+            System.out.println("8. Remove Gym Customer");
+            System.out.println("9. Remove Gym Centre");
+            System.out.println("10. Check Payment Status");
+            System.out.println("11. Log out");
             System.out.print("Enter your choice: ");
 
             choice = in.nextInt();
@@ -45,14 +51,19 @@ public class GymAdminMenu implements GymClient {
                 case 3:
                     System.out.println("View registered gyms");
 //                    gymAdminService.viewRegisteredGyms();
-
                     break;
+
                 case 4:
                     System.out.println("View registered gym customers");
 //                    gymAdminService.viewRegisteredGymCustomers();
-
                     break;
+
+
                 case 5:
+                    System.out.println("View registered gym owners");
+                    break;
+
+                case 6:
                     System.out.println("Added owner to registered gyms");
 //                    long id = in.nextLong();
 //                    String name = in.next();
@@ -60,28 +71,32 @@ public class GymAdminMenu implements GymClient {
 //                    gymAdminService.addGymOwner(id, name, email);
 
                     break;
-                case 6:
+                case 7:
                     System.out.println("Removed owner from registered gyms");
 //                    long removeId = in.nextLong();
 //                    gymAdminService.removeGymOwner(removeId);
 
                     break;
-                case 7:
+                case 8:
                     System.out.println("Removed owner from registered gyms");
 //                    long removeid = in.nextLong();
 //                    gymAdminService.removeGymCustomer(removeid);
 
                     break;
-                case 8:
+                case 9:
                     System.out.println("Removed owner from registered gyms");
 //                    long removegym = in.nextLong();
 //                    gymAdminService.removeGym(removegym);
 
                     break;
 
+                case 10:
+                    System.out.println("Check Payment Status");
+                    break;
+
             }
         }
-        while(choice!=9);{
+        while(choice!=11);{
             System.out.println("Invalid choice. Please try again.");
         }
 

@@ -25,7 +25,28 @@ public class Menu {
     System.out.print("\t Password: ");
     String password = sc.nextLine();
     System.out.print("\t Role: ");
-    String role = sc.nextLine();
+    System.out.println("\n\t\t 1. ADMIN");
+    System.out.println("\t\t 2. OWNER");
+    System.out.println("\t\t 3. CUSTOMER");
+
+    System.out.print("\n\t[+] Enter your choice: ");
+
+    int choice = sc.nextInt();
+
+    String role = "";
+    switch (choice) {
+      case 1:
+        role = "ADMIN";
+        break;
+      case 2:
+        role = "OWNER";
+        break;
+      case 3:
+        role = "CUSTOMER";
+        break;
+      default:
+        System.err.println("Invalid choice");
+    }
 
     return new LoginCredentials(username, password, role);
   }

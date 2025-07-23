@@ -1,8 +1,8 @@
 package com.flipfit.client;
 import java.util.Scanner;
 import com.flipfit.beans.GymOwner;
-import com.flipfit.business.GymOwnerService;
-import com.flipfit.business.GymUserService;
+import com.flipfit.business.impl.GymOwnerService;
+import com.flipfit.business.impl.GymUserService;
 
 public class GymOwnerMenu implements GymClient {
 /*
