@@ -1,6 +1,8 @@
 package com.flipfit.client;
 
+import com.flipfit.business.GymUserService;
 import com.flipfit.constants.Constants;
+import com.flipfit.exceptions.AuthenticationException;
 import com.flipfit.helper.LoginCredentials;
 import com.flipfit.utils.Menu;
 import java.util.Scanner;
@@ -12,6 +14,8 @@ public class GymFlipFitApplication {
     Scanner scanner = new Scanner(System.in);
     String bannerText = Constants.BANNER;
 
+    GymUserService gymUserService = new GymUserService();
+
     System.out.println(bannerText);
     int mainMenuChoice = 0;
     do{
@@ -21,9 +25,20 @@ public class GymFlipFitApplication {
       switch (mainMenuChoice) {
         case 1:
           LoginCredentials loginDetails = Menu.loginMenu();
-          // Call user service for login options
+          try {
+            gymUserService.login(loginDetails);
 
-          // Throws exceptions and return to main menu if there are any error
+            // Get Associated Menu for different roles
+            try{
+               GymClient client = GymClientFactory.getGymClient(loginDetails.getRole());
+               client.Menu();
+            } catch (IllegalArgumentException e) {
+              System.err.println("[-] Error: " + e.getLocalizedMessage());
+            }
+
+          } catch (AuthenticationException e) {
+            System.err.println("[-] Error: " + e.getLocalizedMessage());
+          }
           break;
 
         case 2:
