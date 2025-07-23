@@ -3,7 +3,9 @@ package com.flipfit.client;
 import com.flipfit.business.GymUserService;
 import com.flipfit.constants.Constants;
 import com.flipfit.exceptions.AuthenticationException;
+import com.flipfit.exceptions.RegistrationException;
 import com.flipfit.helper.LoginCredentials;
+import com.flipfit.helper.RegisterData;
 import com.flipfit.utils.Menu;
 import java.util.Scanner;
 
@@ -27,7 +29,6 @@ public class GymFlipFitApplication {
           LoginCredentials loginDetails = Menu.loginMenu();
           try {
             gymUserService.login(loginDetails);
-
             // Get Associated Menu for different roles
             try{
                GymClient client = GymClientFactory.getGymClient(loginDetails.getRole());
@@ -35,7 +36,6 @@ public class GymFlipFitApplication {
             } catch (IllegalArgumentException e) {
               System.err.println("[-] Error: " + e.getLocalizedMessage());
             }
-
           } catch (AuthenticationException e) {
             System.err.println("[-] Error: " + e.getLocalizedMessage());
           }
@@ -44,12 +44,24 @@ public class GymFlipFitApplication {
         case 2:
 
           // Register for the gym customer
+          RegisterData customerData = Menu.registerCustomerMenu();
 
+          try {
+            gymUserService.registerCustomer(customerData);
+          } catch (RegistrationException e) {
+            System.err.println("[-] Error: " + e.getLocalizedMessage());
+          }
           break;
 
         case 3:
           // Register for the gym owner
+          RegisterData ownerData = Menu.registerCustomerMenu();
 
+          try {
+            gymUserService.registerOwner(ownerData);
+          } catch (RegistrationException e) {
+            System.err.println("[-] Error: " + e.getLocalizedMessage());
+          }
           break;
 
         case 4:
