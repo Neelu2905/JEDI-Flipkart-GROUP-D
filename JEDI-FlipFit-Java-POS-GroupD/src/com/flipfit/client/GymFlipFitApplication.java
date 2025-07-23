@@ -5,6 +5,7 @@ import com.flipfit.constants.Constants;
 import com.flipfit.exceptions.AuthenticationException;
 import com.flipfit.exceptions.RegistrationException;
 import com.flipfit.helper.LoginCredentials;
+import com.flipfit.helper.PasswordUpdateData;
 import com.flipfit.helper.RegisterData;
 import com.flipfit.utils.Menu;
 import java.util.Scanner;
@@ -55,7 +56,7 @@ public class GymFlipFitApplication {
 
         case 3:
           // Register for the gym owner
-          RegisterData ownerData = Menu.registerCustomerMenu();
+          RegisterData ownerData = Menu.registerOwnerMenu();
 
           try {
             gymUserService.registerOwner(ownerData);
@@ -66,6 +67,9 @@ public class GymFlipFitApplication {
 
         case 4:
             // Change Password
+          PasswordUpdateData passwordUpdateData = Menu.passwordUpdateMenu();
+          gymUserService.updatePassword(passwordUpdateData);
+
           break;
 
         case 5:

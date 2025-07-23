@@ -1,7 +1,5 @@
 package com.flipfit.helper;
 
-import com.flipfit.beans.Role;
-
 public class LoginCredentials {
   private String username;
   private String password;

@@ -101,5 +101,10 @@ public class GymAdminClient implements GymClient {
         while(choice!=11);{
             System.out.println("Invalid choice. Please try again.");
         }
+
+
     }
+
+
+
 }
