@@ -15,6 +15,7 @@ public class GymCustomerClient implements GymClient {
         int option;
         System.out.println(customerService.getCustomerDetails());
 
+        System.out.println("--- Gym Customer Menu ---");
         System.out.println("1. Search Gym");
         System.out.println("2. View Booked slots");
         System.out.println("3. Cancel Booking");
