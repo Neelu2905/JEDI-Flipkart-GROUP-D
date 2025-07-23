@@ -13,4 +13,8 @@ public class Constants {
       + "                     88                                           \n"
       + "                     88                                           ";
 
+  public static String ADMIN = "ADMIN";
+  public static String CUSTOMER = "CUSTOMER";
+  public static String OWNER = "OWNER";
+
 }

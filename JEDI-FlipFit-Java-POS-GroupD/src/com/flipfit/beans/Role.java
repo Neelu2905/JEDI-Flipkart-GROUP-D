@@ -28,4 +28,9 @@ public class Role {
   public void setRoleDescription(String roleDescription) {
     this.roleDescription = roleDescription;
   }
+
+  public Role(String roleName, String roleDescription) {
+    this.roleName = roleName;
+    this.roleDescription = roleDescription;
+  }
 }

@@ -1,11 +1,14 @@
 package com.flipfit.beans;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class GymUser {
   private long userId;
   private String name;
   private String email;
   private String password;
-  private Role role;
+  private Set<Role> roles = new HashSet<Role>();
 
   public long getUserId() {
     return userId;
@@ -39,11 +42,11 @@ public class GymUser {
     this.password = password;
   }
 
-  public Role getRole() {
-    return role;
+  public Set<Role> getRole() {
+    return roles;
   }
 
-  public void setRole(Role role) {
-    this.role = role;
+  public void setRole(Set<Role> role) {
+    this.roles = role;
   }
 }
