@@ -37,35 +37,43 @@ public class GymAdminClient implements GymClient {
         switch (choice) {
             case 1:
                 Long approvalId = in.nextLong();
+                System.out.print("Approving Gym Owner: ");
                 gymAdminService.approveGym(approvalId);
                 break;
             case 2:
                 Long Id = in.nextLong();
                 gymAdminService.cancelApproval(Id);
+                System.out.println("Cancelled approval");
                 break;
             case 3:
                 gymAdminService.viewRegisteredGyms();
+                System.out.println("View registered gyms");
                 break;
             case 4:
                 gymAdminService.viewRegisteredGymCustomers();
+                System.out.println("View registered gym customers");
                 break;
             case 5:
-                Long id=in.nextLong();
+                long id=in.nextLong();
                 String name=in.next();
                 String email=in.next();
                 gymAdminService.addGymOwner(id, name, email);
+                System.out.println("Added owner to registered gyms");
                 break;
             case 6:
-                Long removeId=in.nextLong();
+                long removeId=in.nextLong();
                 gymAdminService.removeGymOwner(removeId);
+                System.out.println("Removed owner from registered gyms");
                 break;
             case 7:
-                Long removeid=in.nextLong();
+                long removeid=in.nextLong();
                 gymAdminService.removeGymCustomer(removeid);
+                System.out.println("Removed owner from registered gyms");
                 break;
             case 8:
-                Long removegym=in.nextLong();
+                long removegym=in.nextLong();
                 gymAdminService.removeGym(removegym);
+                System.out.println("Removed owner from registered gyms");
                 break;
 
             default:
