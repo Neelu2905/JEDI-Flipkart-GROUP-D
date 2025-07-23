@@ -1,8 +1,8 @@
 package com.flipfit.beans;
 
-public class GymCustomer {
+public class GymCustomer implements GymUser {
 
-  private Long id;
+  private long id;
   private String name;
   private String email;
   private String address;

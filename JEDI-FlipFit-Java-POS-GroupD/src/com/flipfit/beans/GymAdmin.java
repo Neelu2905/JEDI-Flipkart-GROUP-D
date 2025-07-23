@@ -1,6 +1,6 @@
 package com.flipfit.beans;
 
-public class GymAdmin {
+public class GymAdmin implements GymUser {
     private long id;
     private String name;
 
