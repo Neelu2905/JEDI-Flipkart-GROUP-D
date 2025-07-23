@@ -4,9 +4,20 @@ public class GymCustomer extends GymUser{
 
   private String address;
   private int age;
-
+  private String gender;
   public String getAddress() {
     return address;
+  }
+  private int customerPhone;
+  public GymCustomer() {}
+  public GymCustomer(long userId, String name, String email, String address, int age, String gender, int customerPhone) {
+    this.setUserId(userId);
+    this.setName(name);
+    this.setEmail(email);
+    this.setAddress(address);
+    this.setAge(age);
+    this.setGender(gender);
+    this.setCustomerPhone(customerPhone);
   }
 
   public void setAddress(String address) {
@@ -21,11 +32,11 @@ public class GymCustomer extends GymUser{
     this.age = age;
   }
 
-  public Enum getGender() {
+  public String getGender() {
     return gender;
   }
 
-  public void setGender(Enum gender) {
+  public void setGender(String gender) {
     this.gender = gender;
   }
 
@@ -37,7 +48,7 @@ public class GymCustomer extends GymUser{
     this.customerPhone = customerPhone;
   }
 
-  private Enum gender;
-  private int customerPhone;
+
+
 
 }

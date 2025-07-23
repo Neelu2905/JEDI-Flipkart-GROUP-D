@@ -6,14 +6,13 @@ public class GymCustomerService {
 
   GymCustomer customer = new GymCustomer();
 
-  public void createCustomer(int id, String name, String emailAddress, int phone, String password) {
+  public void createCustomer(Long userId, String name, String email, String address,int age, String gender, int customerPhone, String password) {
 
-    customer.setEmail(emailAddress);
+    customer.setEmail(email);
     customer.setName(name);
-    customer.setUserId(id);
-    customer.setCustomerPhone(phone);
+    customer.setUserId(userId);
+    customer.setCustomerPhone(customerPhone);
     customer.setPassword(password);
-    //Baad me is customer ko database me add karna hai
 
     System.out.println("customer details added");
   }
