@@ -1,4 +1,4 @@
-git
+
 package com.flipfit.client;
 
 import java.util.List;
