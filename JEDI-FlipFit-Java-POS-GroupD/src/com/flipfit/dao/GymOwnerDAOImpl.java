@@ -1,8 +1,6 @@
 package com.flipfit.dao; // A common convention for implementations
 
-import com.flipfit.dao.GymOwnerDAO; //Import the interface
 import com.flipfit.beans.GymOwner;
-import com.flipfit.beans.GymUser;
 import com.flipfit.beans.GymCentre;
 import com.flipfit.beans.Slot;
 
@@ -89,8 +87,10 @@ public class GymOwnerDAOImpl implements GymOwnerDAO {
     }
 
     @Override
-    public GymCentre getGymCentreById(Long gymCentreId) {
-        return gymCentres.get(gymCentreId);
+    public List<GymCentre> getGymCentreByOwnerId(long ownerId) {
+        return gymCentres.values().stream()
+                .filter(gym -> gym.getOwnerId() == ownerId)
+                .collect(Collectors.toList());
     }
 
     @Override

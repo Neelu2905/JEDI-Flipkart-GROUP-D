@@ -17,7 +17,8 @@ public interface GymOwnerDAO {
     List<GymOwner> getAllGymOwners();
 
     boolean addGymCentre(GymCentre gymCentre);
-    GymCentre getGymCentreById(Long gymCentreId);
+    List<GymCentre> getGymCentreByOwnerId(long ownerId);
+
     List<GymCentre> getAllGymCentres();
     boolean deleteGymCentre(Long gymCentreId);
 

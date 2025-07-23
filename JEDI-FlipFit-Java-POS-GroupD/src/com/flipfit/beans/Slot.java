@@ -10,6 +10,9 @@ public class Slot {
     private Date date;
     private Time time;
 
+    public Slot(int slotGymId, int capacity, int vacant, Date date, Time time) {
+    }
+
     public int getGymID() {
         return gymID;
     }

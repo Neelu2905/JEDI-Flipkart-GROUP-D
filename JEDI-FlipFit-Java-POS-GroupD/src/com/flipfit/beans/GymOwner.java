@@ -4,6 +4,10 @@ public class GymOwner extends GymUser{
     private String panNo;
     private String aadharNo;
 
+    public GymOwner(long ownerId, String ownerName, String ownerEmail, String ownerPhone, String ownerPanNo, String ownerAadharNo) {
+        super();
+    }
+
     public String getPanNo() {
         return panNo;
     }
