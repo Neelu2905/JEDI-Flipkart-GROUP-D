@@ -1,4 +1,10 @@
 package com.flipfit.business;
 
-public class GymOwnerService {
+import com.flipfit.beans.GymOwner;
+
+public class GymOwnerService
+{
+    public void registerGym(){
+
+    }
 }
