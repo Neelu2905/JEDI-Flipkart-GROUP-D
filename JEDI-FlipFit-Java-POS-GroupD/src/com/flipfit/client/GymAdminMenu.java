@@ -1,7 +1,6 @@
 package com.flipfit.client;
 
 import java.util.Scanner;
-
 import com.flipfit.business.impl.GymAdminService;
 
 

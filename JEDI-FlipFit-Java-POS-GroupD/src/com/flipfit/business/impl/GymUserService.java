@@ -1,22 +1,39 @@
 package com.flipfit.business.impl;
 
+import com.flipfit.beans.GymUser;
+import com.flipfit.beans.Role;
+import com.flipfit.business.GymUserServiceInterface;
+import com.flipfit.dao.GymUserDAO;
+import com.flipfit.dao.GymUserDAOImpl;
 import com.flipfit.exceptions.AuthenticationException;
 import com.flipfit.exceptions.RegistrationException;
+import com.flipfit.exceptions.UserDoesNotExistsException;
 import com.flipfit.helper.LoginCredentials;
 import com.flipfit.helper.PasswordUpdateData;
 import com.flipfit.helper.RegisterData;
+import java.util.List;
 
-public class GymUserService {
+public class GymUserService implements GymUserServiceInterface {
 
-  public boolean login(LoginCredentials loginDetails) throws AuthenticationException {
-    // Connect with Database for further check
-    boolean result = true;
+  GymUserDAO gymUserDAO = new GymUserDAOImpl();
 
-    if(!result){
-      throw new AuthenticationException("Login Failure");
+  public void login(LoginCredentials loginDetails) throws AuthenticationException {
+
+    try {
+      GymUser user = gymUserDAO.getUserByEmail(loginDetails.getUsername());
+      if(user == null || !user.getPassword().equals(loginDetails.getPassword())){
+        throw new AuthenticationException("Authentication Failed");
+      }
+
+      List<String> roles = user.getRole().stream().map(Role::getRoleName).toList();
+
+      if(!roles.contains(loginDetails.getRole())){
+        throw new AuthenticationException("Authentication Failed");
+      }
+
+    } catch (UserDoesNotExistsException e) {
+      throw new AuthenticationException("Authentication Failed");
     }
-
-    return result;
   }
 
   public boolean registerCustomer(RegisterData regCustomerData) throws RegistrationException {

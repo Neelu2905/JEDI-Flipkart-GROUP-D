@@ -35,10 +35,10 @@ public class GymFlipFitApplicationClient {
                GymClient client = GymClientFactory.getGymClient(loginDetails.getRole());
                client.Menu();
             } catch (IllegalArgumentException e) {
-              System.err.println("[-] Error: " + e.getLocalizedMessage());
+              System.err.println("\n[-] Error: " + e.getLocalizedMessage());
             }
           } catch (AuthenticationException e) {
-            System.err.println("[-] Error: " + e.getLocalizedMessage());
+            System.err.println("\n[-] Error: " + e.getLocalizedMessage());
           }
           break;
 
