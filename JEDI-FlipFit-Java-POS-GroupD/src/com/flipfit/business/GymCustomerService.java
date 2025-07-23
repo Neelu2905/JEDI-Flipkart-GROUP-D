@@ -10,9 +10,9 @@ public class GymCustomerService {
 
   public void createCustomer(int id, String name, String emailAddress, int phone, String password) {
 
-    customer.setCustomerEmailAddress(emailAddress);
-    customer.setCustomerName(name);
-    customer.setCustomerId(id);
+    customer.setEmail(emailAddress);
+    customer.setName(name);
+    customer.setUserId(id);
     customer.setCustomerPhone(phone);
     customer.setPassword(password);
     //Baad me is customer ko database me add karna hai

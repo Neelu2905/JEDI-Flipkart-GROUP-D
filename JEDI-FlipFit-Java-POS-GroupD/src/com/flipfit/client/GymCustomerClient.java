@@ -1,16 +1,11 @@
-/**
- *
- */
+
 package com.flipfit.client;
 
 import java.util.Scanner;
-
 import com.flipfit.beans.GymCustomer;
 import com.flipfit.business.GymCustomerService;
 
-/**
- *
- */
+
 public class GymCustomerClient {
 
     public static void customerMenu() {
@@ -31,7 +26,7 @@ public class GymCustomerClient {
         option = in.nextInt();
 
         if(option == 1) {
-            //Search gym according to location
+            //Search gym according to location,
         }
         else if(option == 5) {
             System.out.println("1. Edit name");
@@ -42,13 +37,13 @@ public class GymCustomerClient {
 
             if(subOption == 1) {
                 String name = in.next();
-                customer.setCustomerName(name);
+                customer.setName(name);
                 System.out.println("Name changed successfully");
             }
 
             if(subOption == 2) {
                 String email = in.next();
-                customer.setCustomerEmailAddress(email);
+                customer.setEmail(email);
                 System.out.println("Email changed successfully");
             }
 
