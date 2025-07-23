@@ -9,11 +9,11 @@ public class GymCustomer implements GymUser {
   private int age;
   private Enum gender;
 
-  public Long getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(long id) {
     this.id = id;
   }
 

@@ -1,6 +1,9 @@
 package com.flipfit.beans;
 
 public interface GymUser {
-  long userId = 0L;
-  String name = "";
+  void setId(long id);
+  void setName(String name);
+  String getName();
+  long getId();
+  
 }
