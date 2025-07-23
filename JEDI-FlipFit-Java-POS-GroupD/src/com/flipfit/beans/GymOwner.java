@@ -1,26 +1,8 @@
 package com.flipfit.beans;
 
-public class GymOwner {
-    private long id;
-    private String name;
+public class GymOwner extends GymUser{
     private String panNo;
-    private int aadharNo;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private String aadharNo;
 
     public String getPanNo() {
         return panNo;
@@ -30,11 +12,11 @@ public class GymOwner {
         this.panNo = panNo;
     }
 
-    public int getAadharNo() {
+    public String getAadharNo() {
         return aadharNo;
     }
 
-    public void setAadharNo(int aadharNo) {
+    public void setAadharNo(String aadharNo) {
         this.aadharNo = aadharNo;
     }
 
