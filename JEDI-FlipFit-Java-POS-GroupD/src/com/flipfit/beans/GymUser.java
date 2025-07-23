@@ -10,6 +10,10 @@ public class GymUser {
   private String password;
   private Set<Role> roles = new HashSet<Role>();
 
+  public void addRole(Role role){
+    roles.add(role);
+  }
+
   public long getUserId() {
     return userId;
   }
@@ -48,5 +52,11 @@ public class GymUser {
 
   public void setRole(Set<Role> role) {
     this.roles = role;
+  }
+
+  public GymUser(String name, String email, String password) {
+    this.name = name;
+    this.email = email;
+    this.password = password;
   }
 }
