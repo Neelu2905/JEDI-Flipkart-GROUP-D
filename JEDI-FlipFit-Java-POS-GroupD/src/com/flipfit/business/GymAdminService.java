@@ -15,12 +15,12 @@ public class GymAdminService {
     public List<GymCustomer> viewRegisteredGymCustomers(){
         return null;
     }
-    public void addGymOwner(){
+    public void addGymOwner(long userId, String name, String email){
     }
-    public void removeGymOwner(Long GymOwnerId){
+    public void removeGymOwner(long userId){
     }
-    public void removeGymCustomer(Long gymCustomerId){
+    public void removeGymCustomer(long userId){
     }
-    public void removeGym(Long gymId){
+    public void removeGym(Long id){
     }
 }
