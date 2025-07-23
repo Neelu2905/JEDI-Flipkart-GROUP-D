@@ -1,12 +1,8 @@
 package com.flipfit.client;
 import java.util.Scanner;
-import com.flipfit.beans.GymCentre;
 import com.flipfit.beans.GymOwner;
 import com.flipfit.business.GymOwnerService;
-import com.flipfit.business.GymCentreService;
 import com.flipfit.business.GymUserService;
-import com.flipfit.client.GymClient;
-import com.flipfit.exceptions.AuthenticationException;
 
 public class GymOwnerClient implements GymClient {
 /*

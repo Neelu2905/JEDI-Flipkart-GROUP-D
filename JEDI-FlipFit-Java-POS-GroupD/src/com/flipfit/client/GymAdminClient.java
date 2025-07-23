@@ -1,13 +1,7 @@
 package com.flipfit.client;
 
-import java.util.List;
 import java.util.Scanner;
 
-
-import com.flipfit.beans.GymAdmin;
-import com.flipfit.beans.GymCentre;
-import com.flipfit.beans.GymCustomer;
-import com.flipfit.beans.GymOwner;
 
 import com.flipfit.business.GymAdminService;
 
