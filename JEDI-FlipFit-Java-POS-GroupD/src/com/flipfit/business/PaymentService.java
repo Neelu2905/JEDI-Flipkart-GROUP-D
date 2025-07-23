@@ -1,6 +1,6 @@
 package com.flipfit.business;
 
-public class paymentService {
+public class PaymentService {
     public void makePayment(){
 
     }

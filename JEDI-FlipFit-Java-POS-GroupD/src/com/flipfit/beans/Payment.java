@@ -1,6 +1,6 @@
 package com.flipfit.beans;
 
-public class payment {
+public class Payment {
     private long customerid;
     private String cardNumber;
     private String upiId;
