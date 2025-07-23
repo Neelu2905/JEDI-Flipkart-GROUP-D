@@ -87,7 +87,7 @@ public class GymCustomerClient implements GymClient {
             }
         }
         while ( option != 6);
-        in.close();
+//        in.close();
       }
 
 }
