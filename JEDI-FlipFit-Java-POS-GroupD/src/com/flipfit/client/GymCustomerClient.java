@@ -18,11 +18,13 @@ public class GymCustomerClient implements GymClient {
 //       System.out.println(customerService.getCustomerDetails());
         System.out.println("\n--- Gym Application Menu ---");
         System.out.println("1. Search Gym");
-        System.out.println("2. View Booked slots");
-        System.out.println("3. Cancel Booking");
-        System.out.println("4. Make Payment");
-        System.out.println("5. Edit Profile");
-        System.out.println("6. Logout");
+        System.out.println("2. Book Slot");
+        System.out.println("3. Edit Slot");
+        System.out.println("4. View Booked slots");
+        System.out.println("5. Cancel Booking");
+        System.out.println("6. Make Payment");
+        System.out.println("7. Edit Profile");
+        System.out.println("8. Logout");
 
         option = in.nextInt();
 
@@ -34,19 +36,29 @@ public class GymCustomerClient implements GymClient {
                     break;
 
                 case 2:
+                    // Search gym according to location
+                    System.out.println("Booking your slot...");
+                    break;
+
+                case 3:
+                    // Search gym according to location
+                    System.out.println("Editing your slot...");
+                    break;
+
+                case 4:
                     // View Booked slots
                     System.out.println("Viewing booked slots...");
                     break;
-                case 3:
+                case 5:
                     // Cancel Booking
                     System.out.println("Cancelling booking...");
                     break;
-                case 4:
+                case 6:
                     // Make Payment
                     System.out.println("Proceeding to payment...");
                     break;
 
-                case 5:
+                case 7:
                     System.out.println("1. Edit name");
                     System.out.println("2. Edit email address");
                     System.out.println("3. Edit phone");
@@ -77,7 +89,7 @@ public class GymCustomerClient implements GymClient {
                             break;
                     }
                     break;
-                case 6:
+                case 8:
                     // Exit and go back to gym application page
                     System.out.println("Logging you out...");
                     break;
@@ -86,7 +98,7 @@ public class GymCustomerClient implements GymClient {
                     break;
             }
         }
-        while ( option != 6);
+        while ( option != 8);
 //        in.close();
       }
 
