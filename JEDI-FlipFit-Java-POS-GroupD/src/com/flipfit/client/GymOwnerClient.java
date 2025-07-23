@@ -5,9 +5,10 @@ import com.flipfit.beans.GymOwner;
 import com.flipfit.business.GymOwnerService;
 import com.flipfit.business.GymCentreService;
 import com.flipfit.business.GymUserService;
+import com.flipfit.client.GymClient;
 
-public class GymOwnerClient {
-    public static void GymOwnerMenu() {
+public class GymOwnerClient implements GymClient {
+    public static void Menu() {
         GymOwnerService gymOwnerService = new GymOwnerService();
         GymOwner gymOwner = new GymOwner();
         GymUserService gymUserService = new GymUserService();
