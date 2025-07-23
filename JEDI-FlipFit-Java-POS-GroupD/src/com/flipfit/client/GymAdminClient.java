@@ -15,13 +15,13 @@ import com.flipfit.beans.GymOwner;
 import com.flipfit.business.GymAdminService;
 
 
-public class GymAdminClient {
+public class GymAdminClient implements GymClient {
 
 
-    private GymAdminService gymAdminService = new GymAdminService();
+    public static GymAdminService gymAdminService = new GymAdminService();
 
 
-    public void approveGym(Scanner in) {
+    public static void approveGym(Scanner in) {
         System.out.println("\n--- Approve Gym Centre ---");
         System.out.print("Enter the Gym Approval ID to approve: ");
         Long approvalId = in.nextLong();
@@ -30,7 +30,7 @@ public class GymAdminClient {
     }
 
 
-    public void cancelApproval(Scanner in) {
+    public static void cancelApproval(Scanner in) {
         System.out.println("\n Cancel Gym Approval");
         System.out.print("Enter the Gym Approval ID to cancel approval for: ");
         Long approvalId = in.nextLong();
@@ -39,7 +39,7 @@ public class GymAdminClient {
     }
 
 
-    public void viewRegisteredGyms() {
+    public static void viewRegisteredGyms() {
         System.out.println("\n Registered Gym Centres ");
         List<GymCentre> gymDetails = gymAdminService.viewRegisteredGyms();
         if (gymDetails == null || gymDetails.isEmpty()) {
@@ -60,7 +60,7 @@ public class GymAdminClient {
     }
 
 
-    public void viewRegisteredGymCustomers() {
+    public static void viewRegisteredGymCustomers() {
         System.out.println("\n Registered Gym Customers");
         List<GymCustomer> customerDetails = gymAdminService.viewRegisteredGymCustomers();
         if (customerDetails == null || customerDetails.isEmpty()) {
@@ -80,7 +80,7 @@ public class GymAdminClient {
     }
 
 
-    public void addGymOwner(Scanner in) {
+    public static void addGymOwner(Scanner in) {
         System.out.println("\n--- Add New Gym Owner ---");
         // In a real application, you'd collect details like name, email, password, etc.
         gymAdminService.addGymOwner(); // Call the service method
@@ -88,7 +88,7 @@ public class GymAdminClient {
     }
 
 
-    public void removeGymOwner(Scanner in) {
+    public static void removeGymOwner(Scanner in) {
         System.out.println("\n Remove Gym Owner");
         System.out.print("Enter the Gym Owner ID to remove: ");
         Long gymOwnerId = in.nextLong();
@@ -97,7 +97,7 @@ public class GymAdminClient {
     }
 
 
-    public void removeGymCustomer(Scanner in) {
+    public static void removeGymCustomer(Scanner in) {
         System.out.println("\n Remove Gym Customer");
         System.out.print("Enter the Gym Customer ID to remove: ");
         Long gymCustomerId = in.nextLong();
@@ -106,7 +106,7 @@ public class GymAdminClient {
     }
 
 
-    public void removeGym(Scanner in) {
+    public static void removeGym(Scanner in) {
         System.out.println("\n Remove Gym Centre");
         System.out.print("Enter the Gym Centre ID to remove: ");
         Long gymId = in.nextLong();
@@ -115,7 +115,7 @@ public class GymAdminClient {
     }
 
 
-    public void GymAdminPage(Scanner in) throws Exception {
+    public static void Menu(Scanner in) throws Exception {
         while (true) {
             System.out.println("\n--- Gym Admin Menu ---");
             System.out.println("1. Approve Gym Centre");
@@ -163,16 +163,5 @@ public class GymAdminClient {
     }
 
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        GymAdminClient client = new GymAdminClient();
-        try {
-            client.GymAdminPage(scanner);
-        } catch (Exception e) {
-            System.err.println("An error occurred: " + e.getMessage());
-
-        } finally {
-            scanner.close();
-        }
-    }
+    
 }
