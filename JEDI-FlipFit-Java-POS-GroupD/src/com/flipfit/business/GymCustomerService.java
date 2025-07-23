@@ -20,8 +20,8 @@ public class GymCustomerService {
     System.out.println("customer details added");
   }
 
-  public String getCustomerDetails(){
-    return null;
+  public void getCustomerDetails(){
+
   }
 
   public void viewGymCenters(){
