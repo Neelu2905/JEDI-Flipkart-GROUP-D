@@ -23,15 +23,13 @@ public class GymOwnerClient implements GymClient {
         while(option!=6) {
             Scanner in = new Scanner(System.in);
 
-
-
             System.out.println("--- Gym Owner Menu ---");
             System.out.println("1.Gym Centre Registration");
             System.out.println("2.Edit Slots");
             System.out.println("3.View Registered Gyms");
             System.out.println("4.View Registered and Free Slots");
             System.out.println("5.Edit Profile");
-            System.out.println("6.Exit");
+            System.out.println("6.Logout");
             System.out.print("Enter your choice: ");
             option = in.nextInt();
             in.nextLine();
@@ -81,9 +79,7 @@ public class GymOwnerClient implements GymClient {
 
                     break;
                 case 6:
-                    System.out.println("Exiting Gym Owner Menu. Goodbye!");
-                    //GymApplicationClient gymApplication = new GymApplicationClient();
-                    //gymApplication.main(null);
+                    System.out.println("Logging Out. Goodbye!");
                     break;
                 default:
                     System.out.println("Invalid option");
