@@ -22,7 +22,7 @@ public class GymCustomerClient implements GymClient {
         System.out.println("3. Cancel Booking");
         System.out.println("4. Make Payment");
         System.out.println("5. Edit Profile");
-        System.out.println("6. Exit");
+        System.out.println("6. Logout");
 
         option = in.nextInt();
 
@@ -79,7 +79,7 @@ public class GymCustomerClient implements GymClient {
                     break;
                 case 6:
                     // Exit and go back to gym application page
-                    System.out.println("Exiting to Gym Application page...");
+                    System.out.println("Logging you out...");
                     break;
                 default:
                     System.out.println("Invalid option selected.");

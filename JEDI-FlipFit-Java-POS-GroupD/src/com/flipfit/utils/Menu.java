@@ -1,6 +1,7 @@
 package com.flipfit.utils;
 
 import com.flipfit.helper.LoginCredentials;
+import com.flipfit.helper.PasswordUpdateData;
 import com.flipfit.helper.RegisterData;
 import java.util.Scanner;
 
@@ -85,5 +86,19 @@ public class Menu {
         .setAadhar(aadhar)
         .setPan(pan)
         .build();
+  }
+
+  public static PasswordUpdateData passwordUpdateMenu() {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("\n\n[+] Change Password: ");
+    System.out.println("\t UserId: ");
+    long userId = sc.nextLong();
+    System.out.print("\t Old Password: ");
+    String newPassword = sc.nextLine();
+    System.out.print("\t New Password: ");
+    String oldPassword = sc.nextLine();
+
+    return new PasswordUpdateData(userId, oldPassword, newPassword);
+
   }
 }

@@ -1,6 +1,5 @@
 package com.flipfit.beans;
 
-import com.flipfit.beans.Slot;
 import java.util.List;
 
 public class GymCentre {
