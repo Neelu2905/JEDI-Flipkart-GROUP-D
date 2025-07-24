@@ -99,6 +99,11 @@ public class GymOwnerDAOImpl implements GymOwnerDAO {
     }
 
     @Override
+    public GymCentre getGymCentreById(long centreId) { // Added this method as it's needed by GymCustomerService
+        return gymCentres.get(centreId);
+    }
+
+    @Override
     public boolean deleteGymCentre(Long gymCentreId) {
         if (!gymCentres.containsKey(gymCentreId)) {
             System.out.println("Error: Gym Centre with ID " + gymCentreId + " not found for deletion.");

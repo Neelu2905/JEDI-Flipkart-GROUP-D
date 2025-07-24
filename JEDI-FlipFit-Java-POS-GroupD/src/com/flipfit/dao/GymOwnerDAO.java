@@ -21,7 +21,7 @@ public interface GymOwnerDAO {
 
     List<GymCentre> getAllGymCentres();
     boolean deleteGymCentre(Long gymCentreId);
-
+    GymCentre getGymCentreById(long gymCentreId);
     boolean addSlot(Slot slot);
     List<Slot> getSlotsByGymIdAndDate(int gymId, Date date);
     Slot getSlotByDetails(int gymId, Date date, Time time);
