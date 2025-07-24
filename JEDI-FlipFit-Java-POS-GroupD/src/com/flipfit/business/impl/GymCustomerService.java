@@ -5,7 +5,10 @@ import com.flipfit.beans.GymCustomer;
 import com.flipfit.beans.GymCentre; // Assuming GymCentre is needed for viewGymCenters
 import com.flipfit.beans.Payment; // Added for PaymentService methods
 import com.flipfit.dao.GymCustomerDAO; // Import the DAO interface
-import com.flipfit.dao.GymCustomerDAOImpl; // Assuming this is the implementation
+import com.flipfit.dao.GymCustomerDAOImpl;
+import com.flipfit.beans.GymCentre; // Import GymCentre
+import com.flipfit.dao.GymOwnerDAO;
+import com.flipfit.dao.GymOwnerDAOImpl;
 
 import java.sql.SQLException; // Added for SQLException handling in payment methods
 import java.util.List;
@@ -17,14 +20,15 @@ public class GymCustomerService {
   // Instantiate the DAO. In a real application, this would be injected
   // via a dependency injection framework (e.g., Spring, Guice).
   private GymCustomerDAO gymCustomerDAO;
-
+  private GymOwnerDAO gymOwnerDAO;
   /**
    * Constructor for GymCustomerService.
    * Initializes the DAO dependency.
    */
   public GymCustomerService() {
     // Assuming GymCustomerDaoImpl is the concrete implementation of GymCustomerDAO
-    this.gymCustomerDAO = new GymCustomerDAOImpl(); // Replace with injection in a real app
+    this.gymCustomerDAO = new GymCustomerDAOImpl();
+    this.gymOwnerDAO = new GymOwnerDAOImpl();// Replace with injection in a real app
   }
 
   /**
@@ -269,5 +273,19 @@ public class GymCustomerService {
       System.err.println("[GymCustomerService] Error deleting payments for customer " + customerId + ": " + e.getMessage());
       return false;
     }
+  }
+
+  public List<GymCentre> searchGymCenters(String location) {
+    System.out.println("[GymCustomerService] Searching for gym centers in location: " + location);
+    // Get all gym centers from GymOwnerDAOImpl and then filter by location
+    String lowerCaseLocation = location.trim().toLowerCase();
+    return gymOwnerDAO.getAllGymCentres().stream()
+            .filter(centre -> centre.getAddress().toLowerCase().contains(lowerCaseLocation))
+            .collect(Collectors.toList());
+  }
+
+  public List<GymCentre> viewAllGymCenters() {
+    System.out.println("[GymCustomerService] Fetching all gym centers.");
+    return gymOwnerDAO.getAllGymCentres();
   }
 }
