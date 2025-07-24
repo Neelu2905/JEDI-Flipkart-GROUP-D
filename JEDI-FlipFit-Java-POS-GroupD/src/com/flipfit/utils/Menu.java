@@ -67,10 +67,10 @@ public class Menu {
     System.out.print("\t Password: ");
     String password = sc.nextLine();
 
-    System.out.println("\t Address: ");
+    System.out.print("\t Address: ");
     String address = sc.nextLine();
 
-    System.out.println("\t Gender: ");
+    System.out.print("\t Gender: ");
     String gender = sc.nextLine();
 
     return new RegisterData.Builder()
@@ -84,7 +84,7 @@ public class Menu {
 
   public static RegisterData registerOwnerMenu() {
     Scanner sc = new Scanner(System.in);
-    System.out.println("\n\n[+] Register for the Gym Customer: ");
+    System.out.println("\n\n[+] Register for the Gym Owner: ");
     System.out.print("\t Name: ");
     String name = sc.nextLine();
 
@@ -97,7 +97,7 @@ public class Menu {
     System.out.print("\t Aadhaar Number: ");
     String aadhar = sc.nextLine();
 
-    System.out.println("\t Pan Number: ");
+    System.out.print("\t Pan Number: ");
     String pan = sc.nextLine();
 
     return new RegisterData.Builder()

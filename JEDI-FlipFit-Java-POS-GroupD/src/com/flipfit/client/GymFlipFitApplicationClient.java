@@ -49,6 +49,7 @@ public class GymFlipFitApplicationClient {
 
           try {
             gymUserService.registerCustomer(customerData);
+            System.out.println("\n[-] Successfully registered");
           } catch (RegistrationException e) {
             System.err.println("[-] Error: " + e.getLocalizedMessage());
           }

@@ -16,8 +16,8 @@ public class GymUserDAOImpl implements GymUserDAO {
   private static final Map<Long, GymUser> userMap = new HashMap<>();
   private static final Map<Long, Role> roleMap = new HashMap<>();
 
-  private final static AtomicLong userIdCounter = new AtomicLong();
-  private final static AtomicLong roleIdCounter = new AtomicLong();
+  private final static AtomicLong userIdCounter = new AtomicLong(3);
+  private final static AtomicLong roleIdCounter = new AtomicLong(3);
 
   public GymUserDAOImpl() {
     // Initialize basic roles
@@ -62,8 +62,9 @@ public class GymUserDAOImpl implements GymUserDAO {
    */
   public GymUser addUser(GymUser user) throws UserAlreadyExistsException, UserDoesNotExistsException {
     // Check if a user with the same email already exists
-    if (getUserByEmail(user.getEmail()) != null) {
-      throw new UserAlreadyExistsException("User already exists for this email: " + user.getEmail());
+    GymUser existingUser = userMap.values().stream().filter(u -> u.getEmail().equalsIgnoreCase(user.getEmail())).findFirst().orElse(null);
+    if(existingUser != null){
+      throw new UserAlreadyExistsException("User with email " + user.getEmail() + " already exists.");
     }
     long newId = userIdCounter.incrementAndGet();
     user.setUserId(newId); // Set the generated ID for the user
