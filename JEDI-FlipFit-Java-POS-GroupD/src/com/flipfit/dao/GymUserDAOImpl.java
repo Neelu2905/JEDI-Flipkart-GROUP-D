@@ -7,6 +7,9 @@ import com.flipfit.exceptions.RoleAlreadyExistsException;
 import com.flipfit.exceptions.RoleDoesNotExistsException;
 import com.flipfit.exceptions.UserAlreadyExistsException;
 import com.flipfit.exceptions.UserDoesNotExistsException;
+import org.w3c.dom.ls.LSOutput;
+
+import java.sql.SQLOutput;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,11 +19,12 @@ public class GymUserDAOImpl implements GymUserDAO {
   private static final Map<Long, GymUser> userMap = new HashMap<>();
   private static final Map<Long, Role> roleMap = new HashMap<>();
 
-  private final static AtomicLong userIdCounter = new AtomicLong();
-  private final static AtomicLong roleIdCounter = new AtomicLong();
+  private final static AtomicLong userIdCounter = new AtomicLong(3);
+  private final static AtomicLong roleIdCounter = new AtomicLong(3);
 
   public GymUserDAOImpl() {
     // Initialize basic roles
+    System.out.println("Current userMap: " + userMap);
 
     long adminRoleId = roleIdCounter.incrementAndGet();
     roleMap.putIfAbsent(adminRoleId, new Role(Constants.ADMIN, "Admin permissions"));
@@ -54,6 +58,20 @@ public class GymUserDAOImpl implements GymUserDAO {
     userMap.putIfAbsent(xyzId, xyz);
   }
 
+  public Map<Long, GymUser> getUserMap() {
+    return userMap;
+  }
+
+  @Override
+  public String toString() {
+    return "GymUserDAOImpl{" +
+            "userMap=" + userMap +
+            ", roleMap=" + roleMap +
+            ", userIdCounter=" + userIdCounter +
+            ", roleIdCounter=" + roleIdCounter +
+            '}';
+  }
+
   /**
    * Adds a new GymUser to the system.
    * A unique ID is generated for the user.
@@ -62,8 +80,9 @@ public class GymUserDAOImpl implements GymUserDAO {
    */
   public GymUser addUser(GymUser user) throws UserAlreadyExistsException, UserDoesNotExistsException {
     // Check if a user with the same email already exists
-    if (getUserByEmail(user.getEmail()) != null) {
-      throw new UserAlreadyExistsException("User already exists for this email: " + user.getEmail());
+    GymUser existingUser = userMap.values().stream().filter(u -> u.getEmail().equalsIgnoreCase(user.getEmail())).findFirst().orElse(null);
+    if(existingUser != null){
+      throw new UserAlreadyExistsException("User with email " + user.getEmail() + " already exists.");
     }
     long newId = userIdCounter.incrementAndGet();
     user.setUserId(newId); // Set the generated ID for the user
