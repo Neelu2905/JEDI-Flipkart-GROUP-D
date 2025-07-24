@@ -4,13 +4,17 @@ package com.flipfit.client;
 import java.util.Scanner;
 import com.flipfit.beans.GymCustomer;
 import com.flipfit.business.impl.GymCustomerService;
-
+import com.flipfit.beans.GymCentre;
+import java.util.List;
 
 public class GymCustomerMenu implements GymClient {
+    Scanner in = new Scanner(System.in);
+    GymCustomerService customerService = new GymCustomerService();
+    GymCustomer customer = new GymCustomer();
+
     public void Menu() {
 
-        GymCustomerService customerService = new GymCustomerService();
-        GymCustomer customer = new GymCustomer();
+
         Scanner in = new Scanner(System.in);
         int option;
 
@@ -36,30 +40,30 @@ public class GymCustomerMenu implements GymClient {
 
                 case 2:
                     // Book Slot
-                    bookSlot();
+                    //bookSlot();
                     break;
 
                 case 3:
                     // Edit slot
-                    editSlot();
+                    //editSlot();
                     break;
 
                 case 4:
                     // View Booked slots
-                    viewBookedSlots();
+                    //viewBookedSlots();
                     break;
                 case 5:
                     // Cancel Booking
-                    cancelBooking();
+                    //cancelBooking();
                     break;
                 case 6:
                     // Make Payment
-                    makePayment();
+                   // makePayment();
                     break;
 
                 case 7:
 
-                    editProfile();
+                    //editProfile();
                     System.out.println("1. Edit name");
                     System.out.println("2. Edit email address");
                     System.out.println("3. Edit phone");
@@ -113,14 +117,14 @@ public class GymCustomerMenu implements GymClient {
         // Call the service method. As per GymCustomerService, this is a placeholder.
         // It's assumed viewGymCenters() might conceptually filter by location,
         // but the current service implementation just returns null.
-        List<GymCentre> gymCenters = customerService.viewGymCenters();
+        List<GymCentre> gymCenters = customerService.viewAllGymCenters();
 
         if (gymCenters != null && !gymCenters.isEmpty()) {
             System.out.println("Found Gym Centers (displaying all, not filtered by location in this demo):");
             for (GymCentre center : gymCenters) {
-                System.out.println("ID: " + center.getCentreId() +
-                        ", Name: " + center.getCentreName() +
-                        ", Location: " + center.getLocation());
+                System.out.println("ID: " + center.getGymid() +
+                        ", Name: " + center.getName() +
+                        ", Location: " + center.getAddress());
                 // In a full application, you'd display more details like available slots, pricing etc.
             }
         } else {
