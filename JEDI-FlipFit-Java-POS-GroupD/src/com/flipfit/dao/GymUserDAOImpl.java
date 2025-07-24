@@ -1,7 +1,8 @@
 package com.flipfit.dao;
 
 import com.flipfit.beans.GymUser;
-import com.flipfit.beans.GymOwner; // NEW: Import GymOwner
+import com.flipfit.beans.GymOwner;
+import com.flipfit.beans.GymCustomer;// NEW: Import GymOwner
 import com.flipfit.beans.Role;
 import com.flipfit.constants.Constants;
 import com.flipfit.exceptions.RoleAlreadyExistsException;
@@ -58,10 +59,10 @@ public class GymUserDAOImpl implements GymUserDAO {
 
         // User 2: Neelu (Customer)
         long neeluId = userIdCounter.incrementAndGet(); // This will make second user ID 2
-        GymUser neelu = new GymUser( "Neelu", "neelu@flipkart.com", "password");
-        neelu.setUserId(neeluId);
-        if(customerRole != null) neelu.addRole(customerRole); // Assign Customer role
-        userMap.putIfAbsent(neeluId, neelu);
+        GymCustomer neeluOwner = new GymCustomer( "Neelu", "neelu@flipkart.com", "password");
+        neeluOwner.setUserId(neeluId);
+        if(customerRole != null) neeluOwner.addRole(customerRole); // Assign Customer role
+        userMap.putIfAbsent(neeluId, neeluOwner);
 
         // User 3: XYZ (Owner) - FIX THIS ONE TO BE GYMOWNER
         long xyzId = userIdCounter.incrementAndGet(); // This will make third user ID 3

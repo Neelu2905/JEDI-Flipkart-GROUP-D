@@ -21,10 +21,12 @@ public class GymCustomerMenu implements GymClient {
         this.in = new Scanner(System.in);
         this.customerService = new GymCustomerService();
 
-        // --- DEMO LOGIN ---
-        // For demonstration, fetch a customer with ID 1 as the "logged-in" user.
+        System.out.print("Enter your Gym Customer ID (Long): ");
+        Long ownerIdToFetch = null;
+        ownerIdToFetch = in.nextLong();
+        in.nextLine();
         // In a real application, this would come from a login method.
-        this.loggedInCustomer = customerService.getCustomerDetails(1);
+        this.loggedInCustomer = customerService.getCustomerDetails(ownerIdToFetch);
         if (this.loggedInCustomer == null) {
             System.out.println("Warning: No customer found with ID 1 for demonstration. " +
                     "Please ensure sample data is loaded in GymCustomerDAOImpl " +
@@ -40,7 +42,6 @@ public class GymCustomerMenu implements GymClient {
         int option;
 
         do {
-//       System.out.println(customerService.getCustomerDetails());
         System.out.println("\n--- Gym Application Menu ---");
         System.out.println("1. Search Gym");
         System.out.println("2. Book Slot");
@@ -73,7 +74,7 @@ public class GymCustomerMenu implements GymClient {
                     break;
                 case 5:
                     // Make Payment
-                   // makePayment();
+                   makePayment();
                     break;
 
                 case 6:
