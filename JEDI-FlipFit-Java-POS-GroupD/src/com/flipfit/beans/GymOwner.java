@@ -8,6 +8,10 @@ public class GymOwner extends GymUser{
         super();
     }
 
+    public GymOwner() {
+
+    }
+
     public String getPanNo() {
         return panNo;
     }

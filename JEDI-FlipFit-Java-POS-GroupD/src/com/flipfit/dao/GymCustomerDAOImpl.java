@@ -31,9 +31,9 @@ public class GymCustomerDAOImpl implements GymCustomerDAO {
     private static List<Payment> payments = new ArrayList<>();
 
     public GymCustomerDAOImpl() {
-        addCustomer(new GymCustomer(idCounter.incrementAndGet(), "Alice Smith", "alice@example.com", "123 Main St", 28, "FEMALE'", 987654321));
-        addCustomer(new GymCustomer(idCounter.incrementAndGet(), "Bob Johnson", "bob@example.com", "456 Oak Ave", 35, "MALE", 123456789));
-        addCustomer(new GymCustomer(idCounter.incrementAndGet(), "Charlie Brown", "charlie@example.com", "789 Pine Ln", 22, "MALE", 112233445));
+//        addCustomer(new GymCustomer(idCounter.incrementAndGet(), "Alice Smith", "alice@example.com", "123 Main St", 28, "FEMALE'", 987654321));
+//        addCustomer(new GymCustomer(idCounter.incrementAndGet(), "Bob Johnson", "bob@example.com", "456 Oak Ave", 35, "MALE", 123456789));
+//        addCustomer(new GymCustomer(idCounter.incrementAndGet(), "Charlie Brown", "charlie@example.com", "789 Pine Ln", 22, "MALE", 112233445));
 
 
     }
