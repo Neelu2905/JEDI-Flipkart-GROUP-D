@@ -27,17 +27,17 @@ public class GymUserService implements GymUserServiceInterface {
     try {
       GymUser user = gymUserDAO.getUserByEmail(loginDetails.getUsername());
       if(user == null || !user.getPassword().equals(loginDetails.getPassword())){
-        throw new AuthenticationException("Authentication Failed");
+        throw new AuthenticationException("Authentication Failed 1");
       }
 
       List<String> roles = user.getRole().stream().map(Role::getRoleName).toList();
 
       if(!roles.contains(loginDetails.getRole())){
-        throw new AuthenticationException("Authentication Failed");
+        throw new AuthenticationException("Authentication Failed 2");
       }
 
     } catch (UserDoesNotExistsException e) {
-      throw new AuthenticationException("Authentication Failed");
+      throw new AuthenticationException("Authentication Failed 3");
     }
   }
 
