@@ -88,4 +88,18 @@ public class GymCentre {
         this.slotList = slotList;
     }
 
+    @Override
+    public String toString() {
+        return "GymCentre{" +
+                "ID=" + gymid +
+                ", OwnerID=" + ownerId +
+                ", Name='" + name + '\'' +
+                ", Address='" + address + '\'' +
+                ", GSTIN='" + GSTIN + '\'' +
+                ", Equipments=" + equipments +
+                // You might want to include a summary of slots, e.g., size
+                // ", SlotsCount=" + (slotList != null ? slotList.size() : 0) +
+                '}';
+    }
+
 }

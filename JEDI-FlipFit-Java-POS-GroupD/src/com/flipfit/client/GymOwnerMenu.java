@@ -144,8 +144,8 @@ public class GymOwnerMenu implements GymClient {
             System.out.println("3. Edit Slots");
             System.out.println("4. View Registered Gyms");
             System.out.println("5. View Booked and Available Slots");
-            System.out.println("6. Edit Profile");
-            System.out.println("7. Logout");
+//            System.out.println("6. Edit Profile");
+            System.out.println("6. Logout");
             System.out.print("Enter your choice: ");
 
             int option;
@@ -258,8 +258,7 @@ public class GymOwnerMenu implements GymClient {
                         break;
                     }
 
-                    // FIX 4: Pass Long directly to Slot constructor (removed Math.toIntExact)
-                    Slot newSlot = new Slot(Math.toIntExact(slotGymId), capacity, vacant, date, time); // Changed from Math.toIntExact
+                    Slot newSlot = new Slot(slotGymId, capacity, vacant, date, time);
                     if (gymOwnerService.addSlot(newSlot)) {
                         System.out.println("Slot added successfully!");
                     } else {
@@ -324,7 +323,7 @@ public class GymOwnerMenu implements GymClient {
                     scanner.nextLine();
 
                     // FIX 5: Pass Long directly to Slot constructor (removed Math.toIntExact)
-                    Slot updatedSlot = new Slot(Math.toIntExact(editSlotGymId), newCapacity, newVacant, editDate, editTime); // Changed from Math.toIntExact
+                    Slot updatedSlot = new Slot(editSlotGymId, newCapacity, newVacant, editDate, editTime); // Changed from Math.toIntExact
                     if (gymOwnerService.editSlot(updatedSlot)) {
                         System.out.println("Slot updated successfully!");
                     } else {
@@ -377,46 +376,47 @@ public class GymOwnerMenu implements GymClient {
                     }
                     break;
 
+//                case 6:
+//                    System.out.println("\n--- Edit Profile ---");
+//                    System.out.println("1. Edit name");
+//                    System.out.println("2. Edit email address");
+//                    //System.out.println("3. Edit phone number"); // Added phone number edit option
+//
+//                    int subOption = 0;
+//                    while (!scanner.hasNextInt()) {
+//                        System.out.println("Invalid input. Please enter a number.");
+//                        scanner.next();
+//                        System.out.print("Enter your choice: ");
+//                    }
+//                    subOption = scanner.nextInt();
+//                    scanner.nextLine();
+//
+//                    switch (subOption) {
+//                        case 1:
+//                            System.out.print("Enter new name: ");
+//                            String newName = scanner.nextLine();
+//                            System.out.print(currentGymOwner);
+//                            currentGymOwner.setName(newName);
+//                            if (gymOwnerService.editProfile(currentGymOwner)) {
+//                                System.out.println("Name changed successfully to: " + currentGymOwner.getName());
+//                            } else {
+//                                System.out.println("Failed to update name.");
+//                            }
+//                            break;
+//                        case 2:
+//                            System.out.print("Enter new email: ");
+//                            String newEmail = scanner.nextLine();
+//                            currentGymOwner.setEmail(newEmail);
+//                            if (gymOwnerService.editProfile(currentGymOwner)) {
+//                                System.out.println("Email changed successfully to: " + currentGymOwner.getEmail());
+//                            } else {
+//                                System.out.println("Failed to update email.");
+//                            }
+//                            break;
+//                    }
+//                    break;
+
                 case 6:
-                    System.out.println("\n--- Edit Profile ---");
-                    System.out.println("1. Edit name");
-                    System.out.println("2. Edit email address");
-                    System.out.println("3. Edit phone number"); // Added phone number edit option
-
-                    int subOption = 0;
-                    while (!scanner.hasNextInt()) {
-                        System.out.println("Invalid input. Please enter a number.");
-                        scanner.next();
-                        System.out.print("Enter your choice: ");
-                    }
-                    subOption = scanner.nextInt();
-                    scanner.nextLine();
-
-                    switch (subOption) {
-                        case 1:
-                            System.out.print("Enter new name: ");
-                            String newName = scanner.nextLine();
-                            currentGymOwner.setName(newName);
-                            if (gymOwnerService.editProfile(currentGymOwner)) {
-                                System.out.println("Name changed successfully to: " + currentGymOwner.getName());
-                            } else {
-                                System.out.println("Failed to update name.");
-                            }
-                            break;
-                        case 2:
-                            System.out.print("Enter new email: ");
-                            String newEmail = scanner.nextLine();
-                            currentGymOwner.setEmail(newEmail);
-                            if (gymOwnerService.editProfile(currentGymOwner)) {
-                                System.out.println("Email changed successfully to: " + currentGymOwner.getEmail());
-                            } else {
-                                System.out.println("Failed to update email.");
-                            }
-                            break;
-                    }
-                    break;
-
-                case 7:
                     System.out.println("Logging Out. Goodbye!");
                     running = false;
                     break;
