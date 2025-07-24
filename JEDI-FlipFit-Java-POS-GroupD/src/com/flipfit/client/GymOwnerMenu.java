@@ -4,142 +4,71 @@ import java.util.Scanner;
 import com.flipfit.beans.GymOwner;
 import com.flipfit.beans.GymCentre;
 import com.flipfit.beans.Slot;
-import com.flipfit.beans.GymUser;
-import com.flipfit.beans.Role; // Import the Role class
-import com.flipfit.business.GymOwnerServiceInterface;
-import com.flipfit.business.impl.GymOwnerService;
-import com.flipfit.dao.GymUserDAOImpl;
-import com.flipfit.exceptions.RoleAlreadyExistsException;
-import com.flipfit.exceptions.RoleDoesNotExistsException;
-import com.flipfit.exceptions.UserAlreadyExistsException;
-import com.flipfit.exceptions.UserDoesNotExistsException;
+import com.flipfit.business.GymOwnerServiceInterface; // Use the interface
+import com.flipfit.business.impl.GymOwnerService; // Use the implementation
 
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet; // For Set<Role>
 import java.util.List;
-import java.util.Set;   // For Set<Role>
 
 public class GymOwnerMenu implements GymClient {
 
-    @Override
-    public void Menu() throws RoleDoesNotExistsException, RoleAlreadyExistsException {
+    // This is the new entry point Menu method as requested.
+    // It sets up the required objects and then calls the detailed menu logic.
+    @Override // Implementing the Menu method from GymClient if it exists, otherwise remove @Override
+    public void Menu() {
         Scanner scanner = new Scanner(System.in);
-        GymOwnerServiceInterface gymOwnerService = new GymOwnerService();
-        GymUserDAOImpl gymUserDAO = new GymUserDAOImpl();
+        GymOwnerServiceInterface gymOwnerService = new GymOwnerService(); // Use the interface type
 
-        // --- Initialize Roles in DAO (if not already done elsewhere) ---
-        // This is a crucial step if your roles are managed in-memory by GymUserDAOImpl.
-        // If your roles come from a database, this part would be handled by your DAO.
-        // For demonstration, let's ensure the "Gym Owner" role exists in the DAO's roleMap.
-        if (gymUserDAO.getRoleByName("Gym Owner") == null) {
-            gymUserDAO.addRole(new Role("Gym Owner", "Manages gym centers and slots"));
-        }
-
-
+        // --- Take GymOwner details as input from the user ---
         System.out.println("--- Gym Owner Login/Registration ---");
-
-        GymOwner currentGymOwner = null;
-
-        // Loop until a valid GymOwner is logged in or registered
-        while (currentGymOwner == null) {
-            System.out.print("Do you have an existing Gym Owner account? (yes/no): ");
-            String existingUserChoice = scanner.nextLine().trim().toLowerCase();
-
-            if (existingUserChoice.equals("yes")) {
-                System.out.print("Enter your Gym Owner ID (Long): ");
-                Long ownerIdToFetch = null;
-                if (scanner.hasNextLong()) {
-                    ownerIdToFetch = scanner.nextLong();
-                    scanner.nextLine(); // Consume newline
-                } else {
-                    System.out.println("Invalid input. Please enter a valid number for Owner ID.");
-                    scanner.next(); // Consume invalid input
-                    scanner.nextLine(); // Consume newline
-                    continue; // Restart the loop
-                }
-
-                try {
-                    GymUser fetchedUser = gymUserDAO.getUserById(ownerIdToFetch);
-                    // Verify if the fetched user has the "Gym Owner" role
-                    if (fetchedUser instanceof GymOwner && fetchedUser.hasRole("Gym Owner")) {
-                        currentGymOwner = (GymOwner) fetchedUser;
-                        System.out.println("Welcome back, " + currentGymOwner.getName() + "!");
-                    } else {
-                        System.out.println("User with ID " + ownerIdToFetch + " is not registered as a Gym Owner or does not have the correct role.");
-                    }
-                } catch (UserDoesNotExistsException e) {
-                    System.out.println(e.getMessage());
-                } catch (ClassCastException e) {
-                    System.out.println("Error: The fetched user is not a GymOwner. Check the user's class type in DAO.");
-                }
-
-            } else if (existingUserChoice.equals("no")) {
-                System.out.println("\n--- Register New Gym Owner ---");
-
-                System.out.print("Enter your Name: ");
-                String ownerName = scanner.nextLine();
-
-                System.out.print("Enter your Email: ");
-                String ownerEmail = scanner.nextLine();
-
-                System.out.print("Enter your Phone Number: ");
-                String ownerPhone = scanner.nextLine();
-
-                System.out.print("Enter your PAN Number: ");
-                String ownerPanNo = scanner.nextLine();
-
-                System.out.print("Enter your Aadhar Number: ");
-                String ownerAadharNo = scanner.nextLine();
-
-                // Get the "Gym Owner" Role object from the DAO
-                Role gymOwnerRole = gymUserDAO.getRoleByName("Gym Owner");
-                if (gymOwnerRole == null) {
-                    System.out.println("Critical error: 'Gym Owner' role not found in the system. Cannot register.");
-                    continue; // Restart the loop or exit
-                }
-
-                Set<Role> rolesForOwner = new HashSet<>();
-                rolesForOwner.add(gymOwnerRole);
-
-                // Create the GymOwner object without an ID (it will be set by addUser)
-                GymOwner newGymOwner = new GymOwner(ownerName, ownerEmail, ownerPhone, ownerPanNo, ownerAadharNo);
-                newGymOwner.setRoles(rolesForOwner); // Assign the roles
-
-                try {
-                    // addUser returns GymUser, so cast it to GymOwner
-                    currentGymOwner = (GymOwner) gymUserDAO.addUser(newGymOwner);
-                    System.out.println("New Gym Owner registered successfully: " + currentGymOwner.getName() + " with ID: " + currentGymOwner.getUserId());
-                } catch (UserAlreadyExistsException e) {
-                    System.out.println("Registration failed: " + e.getMessage());
-                } catch (UserDoesNotExistsException e) {
-                    // This should theoretically not happen for addUser, but good to catch
-                    System.out.println("Registration failed: " + e.getMessage());
-                } catch (ClassCastException e) {
-                    System.out.println("Error registering user: User type mismatch. Ensure GymOwner extends GymUser.");
-                }
-
-            } else {
-                System.out.println("Invalid choice. Please enter 'yes' or 'no'.");
-            }
+        System.out.print("Enter your Gym Owner ID (Long): ");
+        long ownerId = 0L;
+        while (!scanner.hasNextLong()) {
+            System.out.println("Invalid input. Please enter a valid number for Owner ID.");
+            scanner.next(); // Consume invalid input
+            System.out.print("Enter your Gym Owner ID (Long): ");
         }
+        ownerId = scanner.nextLong();
+        scanner.nextLine(); // Consume the leftover newline
 
-        // Now that currentGymOwner is set, proceed to the detailed menu
-        System.out.println("\n" + gymUserDAO); // Print the entire DAO state (includes userMap and roleMap)
+        System.out.print("Enter your Name: ");
+        String ownerName = scanner.nextLine();
 
+        System.out.print("Enter your Email: ");
+        String ownerEmail = scanner.nextLine();
+
+        System.out.print("Enter your Phone Number: ");
+        String ownerPhone = scanner.nextLine();
+
+        System.out.print("Enter your PAN Number: ");
+        String ownerPanNo = scanner.nextLine();
+
+        System.out.print("Enter your Aadhar Number: ");
+        String ownerAadharNo = scanner.nextLine();
+
+        // Create the GymOwner object with user-provided data
+        GymOwner currentGymOwner = new GymOwner(ownerId, ownerName, ownerEmail, ownerPhone, ownerPanNo, ownerAadharNo);
+
+        // Call the detailed menu logic, passing the initialized objects
         runDetailedMenu(scanner, gymOwnerService, currentGymOwner);
 
+        // Close the scanner when the application loop finishes
         scanner.close();
         System.out.println("Thank you for using FlipFit. Goodbye!");
     }
 
 
+    // This method now contains the detailed menu loop and logic.
+    // It is called by the new public void Menu() method.
     public void runDetailedMenu(Scanner scanner, GymOwnerServiceInterface gymOwnerService, GymOwner currentGymOwner) {
 
-        System.out.println("\nWelcome, " + currentGymOwner.getName() + " (Gym Owner ID: " + currentGymOwner.getUserId() + ")");
+        // This part would typically be handled by a login process in the calling application.
+        // Display welcome message for the current owner.
+        //System.out.println("\nWelcome, " + currentGymOwner.getName() + " (Gym Owner ID: " + currentGymOwner.getUserId() + ")");
 
         boolean running = true;
         while (running) {
@@ -164,20 +93,17 @@ public class GymOwnerMenu implements GymClient {
 
             switch (option) {
                 case 1:
+                    // Registers a Gym Centre
                     System.out.println("\n--- Gym Centre Registration ---");
                     System.out.print("Enter Gym Centre ID (Long): ");
                     Long gymId = null;
-                    while (gymId == null) {
-                        if (scanner.hasNextLong()) {
-                            gymId = scanner.nextLong();
-                            scanner.nextLine();
-                        } else {
-                            System.out.println("Invalid input. Please enter a valid number for Gym ID.");
-                            scanner.next();
-                            scanner.nextLine();
-                            System.out.print("Enter Gym Centre ID (Long): ");
-                        }
+                    while (!scanner.hasNextLong()) {
+                        System.out.println("Invalid input. Please enter a valid number for Gym ID.");
+                        scanner.next();
+                        System.out.print("Enter Gym Centre ID (Long): ");
                     }
+                    gymId = scanner.nextLong();
+                    scanner.nextLine();
 
                     System.out.print("Enter Gym Centre Name: ");
                     String gymName = scanner.nextLine();
@@ -198,6 +124,7 @@ public class GymOwnerMenu implements GymClient {
                     equipments = scanner.nextInt();
                     scanner.nextLine();
 
+                    // For simplicity, slotList is empty initially or can be passed as null/empty list
                     GymCentre newGymCentre = new GymCentre(gymId, gymName, address, gstin, equipments, new ArrayList<>(), currentGymOwner.getUserId());
 
                     if (gymOwnerService.registerGym(newGymCentre)) {
@@ -209,19 +136,15 @@ public class GymOwnerMenu implements GymClient {
 
                 case 2:
                     System.out.println("\n--- Add Slots ---");
-                    System.out.print("Enter Gym Centre ID (Long) for adding slots: ");
-                    Long slotGymId = null;
-                    while (slotGymId == null) {
-                        if (scanner.hasNextLong()) {
-                            slotGymId = scanner.nextLong();
-                            scanner.nextLine();
-                        } else {
-                            System.out.println("Invalid input. Please enter a valid number for Gym ID.");
-                            scanner.next();
-                            scanner.nextLine();
-                            System.out.print("Enter Gym Centre ID (Long) for adding slots: ");
-                        }
+                    System.out.print("Enter Gym Centre ID (int) for adding slots: ");
+                    int slotGymId = 0;
+                    while (!scanner.hasNextInt()) {
+                        System.out.println("Invalid input. Please enter a valid number for Gym ID.");
+                        scanner.next();
+                        System.out.print("Enter Gym Centre ID (int) for adding slots: ");
                     }
+                    slotGymId = scanner.nextInt();
+                    scanner.nextLine();
 
                     System.out.print("Enter Slot Capacity: ");
                     int capacity = 0;
@@ -263,8 +186,7 @@ public class GymOwnerMenu implements GymClient {
                         break;
                     }
 
-                    // FIX: Pass Long directly to Slot constructor
-                    Slot newSlot = new Slot(Math.toIntExact(slotGymId), capacity, vacant, date, time);
+                    Slot newSlot = new Slot(slotGymId, capacity, vacant, date, time);
                     if (gymOwnerService.addSlot(newSlot)) {
                         System.out.println("Slot added successfully!");
                     } else {
@@ -274,19 +196,15 @@ public class GymOwnerMenu implements GymClient {
 
                 case 3:
                     System.out.println("\n--- Edit Slots ---");
-                    System.out.print("Enter Gym Centre ID (Long) of slot to edit: ");
-                    Long editSlotGymId = null;
-                    while (editSlotGymId == null) {
-                        if (scanner.hasNextLong()) {
-                            editSlotGymId = scanner.nextLong();
-                            scanner.nextLine();
-                        } else {
-                            System.out.println("Invalid input. Please enter a valid number for Gym ID.");
-                            scanner.next();
-                            scanner.nextLine();
-                            System.out.print("Enter Gym Centre ID (Long) of slot to edit: ");
-                        }
+                    System.out.print("Enter Gym Centre ID (int) of slot to edit: ");
+                    int editSlotGymId = 0;
+                    while (!scanner.hasNextInt()) {
+                        System.out.println("Invalid input. Please enter a valid number for Gym ID.");
+                        scanner.next();
+                        System.out.print("Enter Gym Centre ID (int) of slot to edit: ");
                     }
+                    editSlotGymId = scanner.nextInt();
+                    scanner.nextLine();
 
                     System.out.print("Enter Date of slot to edit (YYYY-MM-DD): ");
                     String editDateStr = scanner.nextLine();
@@ -308,6 +226,7 @@ public class GymOwnerMenu implements GymClient {
                         break;
                     }
 
+                    // For simplicity, we'll create a new Slot object with updated values.
                     System.out.print("Enter new Capacity: ");
                     int newCapacity = 0;
                     while (!scanner.hasNextInt()) {
@@ -328,8 +247,7 @@ public class GymOwnerMenu implements GymClient {
                     newVacant = scanner.nextInt();
                     scanner.nextLine();
 
-                    // FIX: Pass Long directly to Slot constructor
-                    Slot updatedSlot = new Slot(Math.toIntExact(editSlotGymId), newCapacity, newVacant, editDate, editTime);
+                    Slot updatedSlot = new Slot(editSlotGymId, newCapacity, newVacant, editDate, editTime);
                     if (gymOwnerService.editSlot(updatedSlot)) {
                         System.out.println("Slot updated successfully!");
                     } else {
@@ -341,7 +259,6 @@ public class GymOwnerMenu implements GymClient {
                     System.out.println("\n--- View Registered Gyms ---");
                     List<GymCentre> registeredGyms = gymOwnerService.viewRegisteredGyms(currentGymOwner.getUserId());
                     if (registeredGyms != null && !registeredGyms.isEmpty()) {
-                        System.out.println("Gyms registered by " + currentGymOwner.getName() + ":");
                         registeredGyms.forEach(System.out::println);
                     } else {
                         System.out.println("No gyms registered by this owner.");
@@ -352,17 +269,13 @@ public class GymOwnerMenu implements GymClient {
                     System.out.println("\n--- View Booked and Available Slots ---");
                     System.out.print("Enter Gym Centre ID (Long) to view slots: ");
                     Long viewSlotGymCentreId = null;
-                    while (viewSlotGymCentreId == null) {
-                        if (scanner.hasNextLong()) {
-                            viewSlotGymCentreId = scanner.nextLong();
-                            scanner.nextLine();
-                        } else {
-                            System.out.println("Invalid input. Please enter a valid number for Gym Centre ID.");
-                            scanner.next();
-                            scanner.nextLine();
-                            System.out.print("Enter Gym Centre ID (Long) to view slots: ");
-                        }
+                    while (!scanner.hasNextLong()) {
+                        System.out.println("Invalid input. Please enter a valid number for Gym Centre ID.");
+                        scanner.next();
+                        System.out.print("Enter Gym Centre ID (Long) to view slots: ");
                     }
+                    viewSlotGymCentreId = scanner.nextLong();
+                    scanner.nextLine();
 
                     System.out.print("Enter Date (YYYY-MM-DD) to view slots: ");
                     String viewDateStr = scanner.nextLine();
@@ -401,8 +314,8 @@ public class GymOwnerMenu implements GymClient {
                         case 1:
                             System.out.print("Enter new name: ");
                             String newName = scanner.nextLine();
-                            currentGymOwner.setName(newName);
-                            if (gymOwnerService.editProfile(currentGymOwner)) {
+                            currentGymOwner.setName(newName); // Update the in-memory object
+                            if (gymOwnerService.editProfile(currentGymOwner)) { // Call service to persist
                                 System.out.println("Name changed successfully to: " + currentGymOwner.getName());
                             } else {
                                 System.out.println("Failed to update name.");
@@ -411,8 +324,8 @@ public class GymOwnerMenu implements GymClient {
                         case 2:
                             System.out.print("Enter new email: ");
                             String newEmail = scanner.nextLine();
-                            currentGymOwner.setEmail(newEmail);
-                            if (gymOwnerService.editProfile(currentGymOwner)) {
+                            currentGymOwner.setEmail(newEmail); // Update the in-memory object
+                            if (gymOwnerService.editProfile(currentGymOwner)) { // Call service to persist
                                 System.out.println("Email changed successfully to: " + currentGymOwner.getEmail());
                             } else {
                                 System.out.println("Failed to update email.");
@@ -426,12 +339,14 @@ public class GymOwnerMenu implements GymClient {
 
                 case 7:
                     System.out.println("Logging Out. Goodbye!");
-                    running = false;
+                    running = false; // Exit the loop
                     break;
 
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
         }
+        // The scanner is not closed here as it's passed in from the caller.
+        // The caller (e.g., main application) is responsible for closing it.
     }
 }
