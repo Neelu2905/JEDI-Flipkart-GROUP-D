@@ -12,6 +12,12 @@ public class GymOwner extends GymUser{
 
     }
 
+    public GymOwner(Long o, String ownerName, String ownerEmail, String ownerPhone, String ownerPanNo, String ownerAadharNo) {
+    }
+
+    public GymOwner(String ownerName, String ownerEmail, String ownerPhone, String ownerPanNo, String ownerAadharNo) {
+    }
+
     public String getPanNo() {
         return panNo;
     }

@@ -5,6 +5,8 @@ import com.flipfit.constants.Constants;
 import com.flipfit.dao.GymUserDAOImpl;
 import com.flipfit.exceptions.AuthenticationException;
 import com.flipfit.exceptions.RegistrationException;
+import com.flipfit.exceptions.RoleAlreadyExistsException;
+import com.flipfit.exceptions.RoleDoesNotExistsException;
 import com.flipfit.helper.LoginCredentials;
 import com.flipfit.helper.PasswordUpdateData;
 import com.flipfit.helper.RegisterData;
@@ -37,6 +39,10 @@ public class GymFlipFitApplicationClient {
                client.Menu();
             } catch (IllegalArgumentException e) {
               System.err.println("\n[-] Error: " + e.getLocalizedMessage());
+            } catch (RoleDoesNotExistsException e) {
+                throw new RuntimeException(e);
+            } catch (RoleAlreadyExistsException e) {
+                throw new RuntimeException(e);
             }
           } catch (AuthenticationException e) {
             System.err.println("\n[-] Error: " + e.getLocalizedMessage());
