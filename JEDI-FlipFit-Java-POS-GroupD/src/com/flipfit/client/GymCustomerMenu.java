@@ -169,15 +169,15 @@ public class GymCustomerMenu implements GymClient {
         System.out.println("Attempting to book slot...");
         Booking booked = customerService.bookSlot(loggedInCustomer.getUserId(), gymCentreId, slotTimeId);
 
-        if (booked != null) {
-            System.out.println("Slot booked successfully!");
-            System.out.println("Booking Details: ID=" + booked.getBookingId() +
-//                    ", Gym ID=" + booked.getGymId() + // Assuming getGymId() from Booking bean
-//                    ", Slot ID=" + booked.getSlotId() + // Assuming getSlotId() from Booking bean
-//                    ", Date=" + booked.getBookingDate() +
-//                    ", Status=" + booked.getBookingStatus());
-        } else {
-            System.out.println("Failed to book slot. Please check inputs, ensure gym/slot exist, or try again.");
-        }
+//        if (booked != null) {
+//            System.out.println("Slot booked successfully!");
+//            System.out.println("Booking Details: ID=" + booked.getBookingId() +
+////                    ", Gym ID=" + booked.getGymId() + // Assuming getGymId() from Booking bean
+////                    ", Slot ID=" + booked.getSlotId() + // Assuming getSlotId() from Booking bean
+////                    ", Date=" + booked.getBookingDate() +
+////                    ", Status=" + booked.getBookingStatus());
+//        } else {
+//            System.out.println("Failed to book slot. Please check inputs, ensure gym/slot exist, or try again.");
+//        }
     }
 }
