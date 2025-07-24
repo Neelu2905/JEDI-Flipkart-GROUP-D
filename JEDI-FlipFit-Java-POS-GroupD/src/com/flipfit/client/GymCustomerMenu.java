@@ -75,10 +75,10 @@ public class GymCustomerMenu implements GymClient {
                 case 5:
                     // Make Payment
                    makePayment();
-                    break;
+                   break;
 
                 case 6:
-
+                    // Edit Profile
                     editProfile();
                     break;
                 case 7:
