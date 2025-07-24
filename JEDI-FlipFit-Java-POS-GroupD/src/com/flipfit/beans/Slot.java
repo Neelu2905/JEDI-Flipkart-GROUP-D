@@ -1,23 +1,30 @@
 package com.flipfit.beans;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Slot {
-    private int gymID;
+    private Long gymID; // Correctly Long
     private int capacity;
     private int vacant;
     private Date date;
     private Time time;
 
-    public Slot(int slotGymId, int capacity, int vacant, Date date, Time time) {
+    // FIX: Populate the constructor with assignments
+    public Slot(Long gymID, int capacity, int vacant, Date date, Time time) {
+        this.gymID = gymID; // Assign the parameter to the field
+        this.capacity = capacity; // Assign the parameter to the field
+        this.vacant = vacant;   // Assign the parameter to the field
+        this.date = date;       // Assign the parameter to the field
+        this.time = time;       // Assign the parameter to the field
     }
 
-    public int getGymID() {
+    public Long getGymID() {
         return gymID;
     }
 
-    public void setGymID(int gymID) {
+    public void setGymID(Long gymID) {
         this.gymID = gymID;
     }
 
@@ -51,5 +58,17 @@ public class Slot {
 
     public void setTime(Time time) {
         this.time = time;
+    }
+
+    // FIX 2: Add @Override toString() to print meaningful data
+    @Override
+    public String toString() {
+        return "Slot{" +
+                "gymID=" + gymID +
+                ", capacity=" + capacity +
+                ", vacant=" + vacant +
+                ", date=" + (date != null ? new SimpleDateFormat("yyyy-MM-dd").format(date) : "null") + // Format date
+                ", time=" + (time != null ? time.toString() : "null") + // Time format is usually fine
+                '}';
     }
 }

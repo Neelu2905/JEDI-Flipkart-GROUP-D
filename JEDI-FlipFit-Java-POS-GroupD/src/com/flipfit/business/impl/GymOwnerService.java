@@ -44,7 +44,8 @@ public class GymOwnerService implements GymOwnerServiceInterface {
     @Override
     public boolean addSlot(Slot slot) {
         // Business logic: Validate slot data
-        if (slot == null || slot.getGymID() <= 0 || slot.getCapacity() <= 0 || slot.getDate() == null || slot.getTime() == null) {
+        System.out.println(slot);
+        if (slot == null || slot.getGymID() == null || slot.getCapacity() <= 0 || slot.getDate() == null || slot.getTime() == null) {
             System.out.println("Service Error: Invalid slot data provided.");
             return false;
         }
