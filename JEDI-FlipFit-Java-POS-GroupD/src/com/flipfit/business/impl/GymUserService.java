@@ -1,12 +1,17 @@
 package com.flipfit.business.impl;
 
+import com.flipfit.beans.GymCustomer;
+import com.flipfit.beans.GymOwner;
 import com.flipfit.beans.GymUser;
 import com.flipfit.beans.Role;
 import com.flipfit.business.GymUserServiceInterface;
+import com.flipfit.constants.Constants;
 import com.flipfit.dao.GymUserDAO;
 import com.flipfit.dao.GymUserDAOImpl;
 import com.flipfit.exceptions.AuthenticationException;
 import com.flipfit.exceptions.RegistrationException;
+import com.flipfit.exceptions.RoleDoesNotExistsException;
+import com.flipfit.exceptions.UserAlreadyExistsException;
 import com.flipfit.exceptions.UserDoesNotExistsException;
 import com.flipfit.helper.LoginCredentials;
 import com.flipfit.helper.PasswordUpdateData;
@@ -37,22 +42,37 @@ public class GymUserService implements GymUserServiceInterface {
   }
 
   public boolean registerCustomer(RegisterData regCustomerData) throws RegistrationException {
-    boolean result = true;
+    GymCustomer gymCustomer = new GymCustomer();
+    gymCustomer.setName(regCustomerData.getName());
+    gymCustomer.setEmail(regCustomerData.getEmail());
+    gymCustomer.setPassword(regCustomerData.getPassword());
+    gymCustomer.setAddress(regCustomerData.getAddress());
+    gymCustomer.setAge(regCustomerData.getAge());
+    gymCustomer.setGender(regCustomerData.getGender());
 
-    if(!result){
+    try {
+      gymCustomer.addRole(gymUserDAO.getRoleByName(Constants.CUSTOMER));
+      gymUserDAO.addUser(gymCustomer);
+    } catch (RoleDoesNotExistsException | UserAlreadyExistsException | UserDoesNotExistsException e) {
       throw new RegistrationException("Registration Failed");
     }
-    System.out.println("[+] Registration successful for Customer");
     return true;
   }
 
   public boolean registerOwner(RegisterData regOwnerData) throws RegistrationException {
-    boolean result = true;
+    GymOwner gymOwner = new GymOwner();
+    gymOwner.setName(regOwnerData.getName());
+    gymOwner.setEmail(regOwnerData.getEmail());
+    gymOwner.setPassword(regOwnerData.getPassword());
+    gymOwner.setAadharNo(regOwnerData.getAadhar());
+    gymOwner.setPanNo(regOwnerData.getPan());
 
-    if(!result){
+    try{
+      gymOwner.addRole(gymUserDAO.getRoleByName(Constants.OWNER));
+      gymUserDAO.addUser(gymOwner);
+    } catch (Exception e) {
       throw new RegistrationException("Registration Failed");
     }
-    System.out.println("[+] Registration successful for Owner");
     return true;
   }
 

@@ -5,6 +5,7 @@ public class GymCustomer extends GymUser{
   private String address;
   private int age;
   private String gender;
+
   public String getAddress() {
     return address;
   }
