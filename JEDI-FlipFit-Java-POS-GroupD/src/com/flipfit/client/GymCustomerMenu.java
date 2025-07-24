@@ -2,6 +2,8 @@
 package com.flipfit.client;
 
 import java.util.Scanner;
+
+import com.flipfit.beans.Booking;
 import com.flipfit.beans.GymCustomer;
 import com.flipfit.business.impl.GymCustomerService;
 import com.flipfit.beans.GymCentre;
@@ -9,8 +11,25 @@ import java.util.List;
 
 public class GymCustomerMenu implements GymClient {
     Scanner in = new Scanner(System.in);
-    GymCustomerService customerService = new GymCustomerService();
+    GymCustomerService customerService;
     GymCustomer customer = new GymCustomer();
+    private GymCustomer loggedInCustomer;
+
+    public GymCustomerMenu() {
+        this.in = new Scanner(System.in);
+        this.customerService = new GymCustomerService();
+
+        // --- DEMO LOGIN ---
+        // For demonstration, fetch a customer with ID 1 as the "logged-in" user.
+        // In a real application, this would come from a login method.
+        this.loggedInCustomer = customerService.getCustomerDetails(1);
+        if (this.loggedInCustomer == null) {
+            System.out.println("Warning: No customer found with ID 1 for demonstration. " +
+                    "Please ensure sample data is loaded in GymCustomerDAOImpl " +
+                    "or implement a proper login/registration flow first.");
+            // You might want to handle this more robustly, e.g., prompt for signup or exit.
+        }
+    }
 
     public void Menu() {
 
@@ -132,4 +151,39 @@ public class GymCustomerMenu implements GymClient {
         }
     }
 
+
+    private void bookSlot() {
+        System.out.println("\n--- Book Slot ---");
+
+        // First, ideally, list available gyms and their slots for the customer to choose from
+        System.out.println("Please view available gyms and their slots first (e.g., via Search Gym and then a 'View Slots' option).");
+        // For this demo, we'll ask directly for IDs
+
+        System.out.print("Enter Gym Centre ID where you want to book: ");
+        long gymCentreId = in.nextLong();
+        in.nextLine(); // Consume newline after reading long
+
+        System.out.print("Enter Slot ID (e.g., 1 for 7-8 AM, consult gym schedule): ");
+        long slotTimeId = in.nextLong();
+        in.nextLine(); // Consume newline after reading long
+
+        // In a real application, you'd also ask for the specific date if slots vary daily
+        // For simplicity, we're using LocalDate.now() for the booking date.
+
+        System.out.println("Attempting to book slot...");
+        // Call the service method with the logged-in customer's ID and chosen gym/slot IDs
+        // The GymCustomerService.bookSlot method expects (customerId, gymCentreId, slotTimeId)
+        Booking booked = customerService.bookSlot(loggedInCustomer.getUserId(), gymCentreId, slotTimeId);
+
+        if (booked != null) {
+            System.out.println("Slot booked successfully!");
+            System.out.println("Booking Details: ID=" + booked.getBookingId() +
+                    ", Gym ID=" + booked.getGymId() + // Assuming getGymId() from Booking bean
+                    ", Slot ID=" + booked.getSlotId() + // Assuming getSlotId() from Booking bean
+                    ", Date=" + booked.getBookingDate() +
+                    ", Status=" + booked.getBookingStatus());
+        } else {
+            System.out.println("Failed to book slot. Please check inputs, ensure gym/slot exist, or try again.");
+        }
+    }
 }
