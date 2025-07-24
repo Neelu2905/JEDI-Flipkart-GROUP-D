@@ -7,6 +7,9 @@ import com.flipfit.exceptions.RoleAlreadyExistsException;
 import com.flipfit.exceptions.RoleDoesNotExistsException;
 import com.flipfit.exceptions.UserAlreadyExistsException;
 import com.flipfit.exceptions.UserDoesNotExistsException;
+import org.w3c.dom.ls.LSOutput;
+
+import java.sql.SQLOutput;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +24,7 @@ public class GymUserDAOImpl implements GymUserDAO {
 
   public GymUserDAOImpl() {
     // Initialize basic roles
+    System.out.println("Current userMap: " + userMap);
 
     long adminRoleId = roleIdCounter.incrementAndGet();
     roleMap.putIfAbsent(adminRoleId, new Role(Constants.ADMIN, "Admin permissions"));
@@ -52,6 +56,20 @@ public class GymUserDAOImpl implements GymUserDAO {
     xyz.setUserId(xyzId);
     xyz.addRole(roleMap.get(ownerRoleId)); // Assign Owner role
     userMap.putIfAbsent(xyzId, xyz);
+  }
+
+  public Map<Long, GymUser> getUserMap() {
+    return userMap;
+  }
+
+  @Override
+  public String toString() {
+    return "GymUserDAOImpl{" +
+            "userMap=" + userMap +
+            ", roleMap=" + roleMap +
+            ", userIdCounter=" + userIdCounter +
+            ", roleIdCounter=" + roleIdCounter +
+            '}';
   }
 
   /**

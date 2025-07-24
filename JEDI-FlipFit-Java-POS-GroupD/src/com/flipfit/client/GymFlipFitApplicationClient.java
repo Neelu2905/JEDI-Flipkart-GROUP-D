@@ -2,6 +2,7 @@ package com.flipfit.client;
 
 import com.flipfit.business.impl.GymUserService;
 import com.flipfit.constants.Constants;
+import com.flipfit.dao.GymUserDAOImpl;
 import com.flipfit.exceptions.AuthenticationException;
 import com.flipfit.exceptions.RegistrationException;
 import com.flipfit.helper.LoginCredentials;
@@ -18,7 +19,7 @@ public class GymFlipFitApplicationClient {
     String bannerText = Constants.BANNER;
 
     GymUserService gymUserService = new GymUserService();
-
+    
     System.out.println(bannerText);
     int mainMenuChoice = 0;
     do{
