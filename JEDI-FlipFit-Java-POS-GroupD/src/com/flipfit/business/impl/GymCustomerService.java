@@ -64,7 +64,7 @@ public class GymCustomerService {
    * @param customerId The ID of the customer to retrieve.
    * @return The GymCustomer object if found, null otherwise.
    */
-  public GymCustomer getCustomerDetails(int customerId) { // Modified to accept customerId
+  public GymCustomer getCustomerDetails(long customerId) { // Modified to accept customerId
     System.out.println("[GymCustomerService] Fetching customer details for ID: " + customerId);
     return gymCustomerDAO.getCustomerById(customerId);
   }

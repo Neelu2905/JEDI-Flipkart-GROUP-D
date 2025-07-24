@@ -9,9 +9,9 @@ import java.sql.SQLException;
 public interface GymCustomerDAO {
     // Customers
     void addCustomer(GymCustomer customer);
-    GymCustomer getCustomerById(int customerId);
+    GymCustomer getCustomerById(long customerId);
     void updateCustomer(GymCustomer customer);
-    void deleteCustomer(int customerId);
+    void deleteCustomer(long customerId);
     List<GymCustomer> getAllCustomers();
 
 

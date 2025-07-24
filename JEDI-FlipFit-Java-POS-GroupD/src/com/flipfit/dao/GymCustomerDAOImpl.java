@@ -50,7 +50,7 @@ public class GymCustomerDAOImpl implements GymCustomerDAO {
     }
 
     @Override
-    public GymCustomer getCustomerById(int customerId) {
+    public GymCustomer getCustomerById(long customerId) {
         return customers.get(customerId);
     }
 
@@ -65,7 +65,7 @@ public class GymCustomerDAOImpl implements GymCustomerDAO {
     }
 
     @Override
-    public void deleteCustomer(int customerId) {
+    public void deleteCustomer(long customerId) {
         GymCustomer removedCustomer = customers.remove(customerId);
         if (removedCustomer != null) {
             System.out.println("Deleted customer with ID: " + customerId + " (" + removedCustomer.getName() + ")");
