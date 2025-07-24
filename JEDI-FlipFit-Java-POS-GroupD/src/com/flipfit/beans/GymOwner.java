@@ -1,19 +1,17 @@
-// In your GymOwner.java file
 package com.flipfit.beans;
 
 public class GymOwner extends GymUser {
     private String Phone;
     private String PanNo;
     private String AadharNo;
-    private String approvalStatus; 
+    private String approvalStatus;
 
-    
+
     public GymOwner() {
-        super(); // Calls GymUser's no-argument constructor
-        this.approvalStatus = "PENDING"; // Default status
+
     }
 
-    
+
     public GymOwner(
             long Id,
             String Name,
@@ -22,8 +20,8 @@ public class GymOwner extends GymUser {
             String PanNo,
             String AadharNo
     ) {
-        
-        super(); 
+
+        super();
 
         // Set inherited properties from GymUser
         this.setUserId(Id); // Set the userId inherited from GymUser
@@ -39,6 +37,12 @@ public class GymOwner extends GymUser {
         this.AadharNo = AadharNo;
         this.approvalStatus = "PENDING"; // Default status
     }
+    // You need to ADD or MODIFY a constructor that accepts 'password'
+    public GymOwner(String name, String email, String password, String panNo, String aadharNo) {
+        super(name, email, password); // Pass the password to the GymUser constructor
+        this.PanNo = panNo;
+        this.AadharNo = aadharNo;
+    }
 
     // Getters and Setters for GymOwner-specific fields
     public String getPhone() { return Phone; }
@@ -50,5 +54,4 @@ public class GymOwner extends GymUser {
     public String getApprovalStatus() { return approvalStatus; }
     public void setApprovalStatus(String approvalStatus) { this.approvalStatus = approvalStatus; }
 
-    
 }

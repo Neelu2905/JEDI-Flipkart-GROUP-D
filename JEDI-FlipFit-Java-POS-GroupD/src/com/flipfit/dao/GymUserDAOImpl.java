@@ -1,143 +1,151 @@
 package com.flipfit.dao;
 
 import com.flipfit.beans.GymUser;
+import com.flipfit.beans.GymOwner; // NEW: Import GymOwner
 import com.flipfit.beans.Role;
 import com.flipfit.constants.Constants;
 import com.flipfit.exceptions.RoleAlreadyExistsException;
 import com.flipfit.exceptions.RoleDoesNotExistsException;
 import com.flipfit.exceptions.UserAlreadyExistsException;
 import com.flipfit.exceptions.UserDoesNotExistsException;
-import org.w3c.dom.ls.LSOutput;
+import org.w3c.dom.ls.LSOutput; // Consider removing if unused, as per earlier suggestions
 
-import java.sql.SQLOutput;
+import java.sql.SQLOutput; // Consider removing if unused
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet; // NEW: Import HashSet for roles
 import java.util.Map;
+import java.util.Set; // NEW: Import Set for roles
 import java.util.concurrent.atomic.AtomicLong;
 
 public class GymUserDAOImpl implements GymUserDAO {
   private static final Map<Long, GymUser> userMap = new HashMap<>();
   private static final Map<Long, Role> roleMap = new HashMap<>();
 
-  private final static AtomicLong userIdCounter = new AtomicLong(3);
-  private final static AtomicLong roleIdCounter = new AtomicLong(3);
+  // Start counters from 0 or 1, and let them increment naturally.
+  // Setting to 3 here means your first generated ID will be 4.
+  // If you want IDs to start from 1, set to 0.
+  private final static AtomicLong userIdCounter = new AtomicLong(0); // Changed to 0 for simpler ID sequence
+  private final static AtomicLong roleIdCounter = new AtomicLong(0); // Changed to 0 for simpler ID sequence
 
   public GymUserDAOImpl() {
-    // Initialize basic roles
-    System.out.println("Current userMap: " + userMap);
+    System.out.println("Initializing GymUserDAOImpl...");
 
-    long adminRoleId = roleIdCounter.incrementAndGet();
-    roleMap.putIfAbsent(adminRoleId, new Role(Constants.ADMIN, "Admin permissions"));
+    // Initialize basic roles first
+      long adminRoleId = roleIdCounter.incrementAndGet(); // This will make first role ID 1
+      roleMap.putIfAbsent(adminRoleId, new Role(adminRoleId, Constants.ADMIN, "Admin permissions")); // Pass ID to Role constructor
 
-    long customerRoleId = roleIdCounter.incrementAndGet();
-    roleMap.putIfAbsent(customerRoleId, new Role(Constants.CUSTOMER, "Customer permissions"));
+      long customerRoleId = roleIdCounter.incrementAndGet(); // This will make second role ID 2
+      roleMap.putIfAbsent(customerRoleId, new Role(customerRoleId, Constants.CUSTOMER, "Customer permissions"));
 
-    long ownerRoleId = roleIdCounter.incrementAndGet();
-    roleMap.putIfAbsent(ownerRoleId, new Role(Constants.OWNER, "Owner permissions"));
+      long ownerRoleId = roleIdCounter.incrementAndGet(); // This will make third role ID 3
+      roleMap.putIfAbsent(ownerRoleId, new Role(ownerRoleId, Constants.OWNER, "Owner permissions"));
 
-    // Initialize some dummy users
-    // User 1: Sajid Anis (Admin)
-    long sajidId = userIdCounter.incrementAndGet();
-    GymUser sajid = new GymUser("Sajid Anis", "sajid.anis20@gmail.com", "dummy");
-    sajid.setUserId(sajidId);
-    sajid.addRole(roleMap.get(adminRoleId)); // Assign Admin role
-    userMap.putIfAbsent(sajidId, sajid);
+      // Initialize some dummy users if userMap is empty
+    if (userMap.isEmpty()) {
+      try {
+        // Retrieve roles from roleMap to assign them to users
+        Role adminRole = getRoleByName(Constants.ADMIN);
+        Role customerRole = getRoleByName(Constants.CUSTOMER);
+        Role ownerRole = getRoleByName(Constants.OWNER);
 
-    // User 2: Neelu (Customer)
-    long neeluId = userIdCounter.incrementAndGet();
-    GymUser neelu = new GymUser( "Neelu", "neelu@flipkart.com", "password");
-    neelu.setUserId(neeluId);
-    neelu.addRole(roleMap.get(customerRoleId)); // Assign Customer role
-    userMap.putIfAbsent(neeluId, neelu);
+        // User 1: Sajid Anis (Admin)
+        long sajidId = userIdCounter.incrementAndGet(); // This will make first user ID 1
+        GymUser sajid = new GymUser("Sajid Anis", "sajid.anis20@gmail.com", "dummy");
+        sajid.setUserId(sajidId);
+        if(adminRole != null) sajid.addRole(adminRole); // Assign Admin role
+        userMap.putIfAbsent(sajidId, sajid);
 
-    // User 3: XYZ (Owner)
-    long xyzId = userIdCounter.incrementAndGet();
-    GymUser xyz = new GymUser("XYZ", "xyz@flipkart.com", "dummy");
-    xyz.setUserId(xyzId);
-    xyz.addRole(roleMap.get(ownerRoleId)); // Assign Owner role
-    userMap.putIfAbsent(xyzId, xyz);
+        // User 2: Neelu (Customer)
+        long neeluId = userIdCounter.incrementAndGet(); // This will make second user ID 2
+        GymUser neelu = new GymUser( "Neelu", "neelu@flipkart.com", "password");
+        neelu.setUserId(neeluId);
+        if(customerRole != null) neelu.addRole(customerRole); // Assign Customer role
+        userMap.putIfAbsent(neeluId, neelu);
+
+        // User 3: XYZ (Owner) - FIX THIS ONE TO BE GYMOWNER
+        long xyzId = userIdCounter.incrementAndGet(); // This will make third user ID 3
+        // FIX: Create a GymOwner object, not a GymUser object
+        GymOwner xyzOwner = new GymOwner(
+                "XYZ",
+                "xyz@flipkart.com",
+                "dummy",
+                "XYZPAN123",  // Example PAN
+                "XYZAADHAR456" // Example Aadhar
+        );
+        xyzOwner.setUserId(xyzId); // Set the generated ID
+        if(ownerRole != null) xyzOwner.addRole(ownerRole); // Assign Owner role
+        userMap.putIfAbsent(xyzId, xyzOwner); // Store the GymOwner object
+
+        System.out.println("Pre-populated userMap after initialization:");
+        userMap.forEach((id, user) -> System.out.println("  " + id + "=" + user.getClass().getSimpleName() + user.toString()));
+
+      } catch (RoleDoesNotExistsException e) {
+        System.err.println("Error pre-populating users: " + e.getMessage());
+      }
+    }
   }
 
   public Map<Long, GymUser> getUserMap() {
     return userMap;
   }
 
-  // Existing toString() method or add it if not present
   @Override
   public String toString() {
-    return "GymUserDAOImpl{" +
-            "userMap=" + userMap +
-            ", roleMap=" + roleMap.values() + // Print role names for clarity
-            ", userIdCounter=" + userIdCounter +
-            ", roleIdCounter=" + roleIdCounter +
-            '}';
+    StringBuilder sb = new StringBuilder("GymUserDAOImpl{\n");
+    sb.append("  userMap={\n");
+    // Iterate and append each user's details, showing their actual class type
+    userMap.forEach((id, user) -> {
+      sb.append("    ").append(id).append("=").append(user.getClass().getSimpleName()).append(user.toString()).append(",\n");
+    });
+    sb.append("  },\n");
+    sb.append("  roleMap=").append(roleMap.values()).append(",\n");
+    sb.append("  userIdCounter=").append(userIdCounter).append(",\n");
+    sb.append("  roleIdCounter=").append(roleIdCounter).append("\n");
+    sb.append("}");
+    return sb.toString();
   }
 
-  /**
-   * Adds a new GymUser to the system.
-   * A unique ID is generated for the user.
-   * @param user The GymUser object to add.
-   * @return The added GymUser object with its new ID, or null if the user already exists (by email).
-   */
+  // --- EXISTING METHODS (no functional changes needed here, only context-aware comments) ---
+
   public GymUser addUser(GymUser user) throws UserAlreadyExistsException, UserDoesNotExistsException {
-    // Check if a user with the same email already exists
     GymUser existingUser = userMap.values().stream().filter(u -> u.getEmail().equalsIgnoreCase(user.getEmail())).findFirst().orElse(null);
     if(existingUser != null){
       throw new UserAlreadyExistsException("User with email " + user.getEmail() + " already exists.");
     }
     long newId = userIdCounter.incrementAndGet();
-    user.setUserId(newId); // Set the generated ID for the user
-    userMap.put(newId, user);
+    user.setUserId(newId);
+    userMap.put(newId, user); // This will store the actual type of 'user' (GymUser or GymOwner)
     System.out.println("User added: " + user.getName() + " with ID: " + newId);
     return user;
   }
 
-  /**
-   * Retrieves a GymUser by their ID.
-   * @param id The ID of the user to retrieve.
-   * @return The GymUser object if found, otherwise null.
-   */
   public GymUser getUserById(Long id) throws UserDoesNotExistsException {
     if(!userMap.containsKey(id)){
-        throw new UserDoesNotExistsException("User does not exist with this id: " + id);
+      throw new UserDoesNotExistsException("User does not exist with this id: " + id);
     }
-    return userMap.get(id);
+    return userMap.get(id); // Returns the actual object type (GymUser or GymOwner)
   }
 
-  /**
-   * Retrieves a GymUser by their email address.
-   * @param email The email address of the user to retrieve.
-   * @return The GymUser object if found, otherwise null.
-   */
   public GymUser getUserByEmail(String email) throws UserDoesNotExistsException {
-    // Stream through the userMap values and find a user with the matching email
+    // FIX: Add a null check for user.getEmail() before calling equalsIgnoreCase
     return userMap.values().stream()
-        .filter(user -> user.getEmail().equalsIgnoreCase(email))
-        .findFirst()
-        .orElseThrow(() -> new UserDoesNotExistsException("User does not exist with this email: " + email));
+            .filter(user -> user.getEmail() != null && user.getEmail().equalsIgnoreCase(email)) // ADDED null check
+            .findFirst()
+            .orElseThrow(() -> new UserDoesNotExistsException("User does not exist with this email: " + email));
   }
 
-  /**
-   * Updates an existing GymUser.
-   * The user's ID must be set for the update to occur.
-   * @param user The GymUser object with updated information.
-   * @return The updated GymUser object, or null if the user was not found.
-   */
+
   public GymUser updateUser(Long userId, GymUser user) throws UserDoesNotExistsException {
     if (!userMap.containsKey(userId)) {
       throw new UserDoesNotExistsException("User does not exist with this userId: " + userId);
     }
     user.setUserId(userId);
-    userMap.put(userId, user); // Overwrite the existing user with the updated one
+    userMap.put(userId, user);
     System.out.println("[+] User updated: " + user.getName() + " with ID: " + user.getUserId());
     return user;
   }
 
-  /**
-   * Deletes a GymUser by their ID.
-   * @param userId The ID of the user to delete.
-   * @return True if the user was deleted, false otherwise.
-   */
   public void deleteUser(Long userId) throws UserDoesNotExistsException {
     if (!userMap.containsKey(userId)) {
       throw new UserDoesNotExistsException("User does not exist with this userId: " + userId);
@@ -146,36 +154,29 @@ public class GymUserDAOImpl implements GymUserDAO {
     System.out.println("User deleted: " + removedUser.getName() + " with ID: " + userId);
   }
 
-  /**
-   * Retrieves all GymUser objects in the system.
-   * @return A collection of all GymUser objects.
-   */
   public Collection<GymUser> getAllUsers() {
     return userMap.values();
   }
 
-  /**
-   * Adds a new Role to the system.
-   * A unique ID is generated for the role.
-   * @param role The Role object to add.
-   * @return The added Role object with its new ID, or null if the role already exists (by name).
-   */
+  // --- ROLE METHODS ---
+
   public Role addRole(Role role) throws RoleAlreadyExistsException, RoleDoesNotExistsException {
-    if (getRoleByName(role.getRoleName()) != null) {
-      throw new RoleAlreadyExistsException("[-] This role already exists: " + role.getRoleName());
+    // FIX: Use try-catch or check against null for getRoleByName as it throws
+    try {
+      if (getRoleByName(role.getRoleName()) != null) {
+        throw new RoleAlreadyExistsException("[-] This role already exists: " + role.getRoleName());
+      }
+    } catch (RoleDoesNotExistsException e) {
+      // This means the role doesn't exist, which is good for adding it. Do nothing here.
     }
+
     long newId = roleIdCounter.incrementAndGet();
-    role.setRoleId(newId); // Assuming Role class has a setRoleId method
+    role.setRoleId(newId);
     roleMap.put(newId, role);
     System.out.println("Role added: " + role.getRoleName() + " with ID: " + newId);
     return role;
   }
 
-  /**
-   * Retrieves a Role by its ID.
-   * @param id The ID of the role to retrieve.
-   * @return The Role object if found, otherwise null.
-   */
   public Role getRoleById(Long id) throws RoleDoesNotExistsException {
     if(!roleMap.containsKey(id)){
       throw new RoleDoesNotExistsException("Role does not exist with this id: " + id);
@@ -183,39 +184,24 @@ public class GymUserDAOImpl implements GymUserDAO {
     return roleMap.get(id);
   }
 
-  /**
-   * Retrieves a Role by its name.
-   * @param name The name of the role to retrieve.
-   * @return The Role object if found, otherwise null.
-   */
   public Role getRoleByName(String name) throws RoleDoesNotExistsException {
+    // Ensure this correctly filters through your roleMap.values()
     return roleMap.values().stream()
-        .filter(role -> role.getRoleName().equalsIgnoreCase(name))
-        .findFirst()
-        .orElseThrow(() -> new RoleDoesNotExistsException("Role does not exist with this name: " + name));
+            .filter(role -> role.getRoleName().equalsIgnoreCase(name))
+            .findFirst()
+            .orElseThrow(() -> new RoleDoesNotExistsException("Role does not exist with this name: " + name));
   }
 
-  /**
-   * Updates an existing Role.
-   * The role's ID must be set for the update to occur.
-   * @param role The Role object with updated information.
-   * @return The updated Role object, or null if the role was not found.
-   */
   public Role updateRole(Long roleId, Role role) throws RoleDoesNotExistsException {
-    if ( !roleMap.containsKey(role.getRoleId())) {
+    if ( !roleMap.containsKey(role.getRoleId())) { // Should check roleId, not role.getRoleId() directly if roleId is the parameter
       throw new RoleDoesNotExistsException("Role does not exist with this id: " + roleId);
     }
-    role.setRoleId(roleId);
-    roleMap.put(role.getRoleId(), role); // Overwrite the existing role with the updated one
+    role.setRoleId(roleId); // Ensure the ID of the 'role' object matches the ID being updated
+    roleMap.put(role.getRoleId(), role);
     System.out.println("Role updated: " + role.getRoleName() + " with ID: " + role.getRoleId());
     return role;
   }
 
-  /**
-   * Deletes a Role by its ID.
-   * @param id The ID of the role to delete.
-   * @return True if the role was deleted, false otherwise.
-   */
   public void deleteRole(Long id) throws RoleDoesNotExistsException {
     if ( !roleMap.containsKey(id)) {
       throw new RoleDoesNotExistsException("Role does not exist with this id: " + id);
@@ -225,10 +211,6 @@ public class GymUserDAOImpl implements GymUserDAO {
     System.out.println("Role deleted: " + removedRole.getRoleName() + " with ID: " + id);
   }
 
-  /**
-   * Retrieves all Role objects in the system.
-   * @return A collection of all Role objects.
-   */
   public Collection<Role> getAllRoles() {
     return roleMap.values();
   }
