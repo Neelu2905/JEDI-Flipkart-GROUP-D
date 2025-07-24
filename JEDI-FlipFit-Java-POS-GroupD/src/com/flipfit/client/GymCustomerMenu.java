@@ -155,7 +155,6 @@ public class GymCustomerMenu implements GymClient {
     private void bookSlot() {
         System.out.println("\n--- Book Slot ---");
 
-        // First, ideally, list available gyms and their slots for the customer to choose from
         System.out.println("Please view available gyms and their slots first (e.g., via Search Gym and then a 'View Slots' option).");
         // For this demo, we'll ask directly for IDs
 
@@ -167,12 +166,7 @@ public class GymCustomerMenu implements GymClient {
         long slotTimeId = in.nextLong();
         in.nextLine(); // Consume newline after reading long
 
-        // In a real application, you'd also ask for the specific date if slots vary daily
-        // For simplicity, we're using LocalDate.now() for the booking date.
-
         System.out.println("Attempting to book slot...");
-        // Call the service method with the logged-in customer's ID and chosen gym/slot IDs
-        // The GymCustomerService.bookSlot method expects (customerId, gymCentreId, slotTimeId)
         Booking booked = customerService.bookSlot(loggedInCustomer.getUserId(), gymCentreId, slotTimeId);
 
         if (booked != null) {
