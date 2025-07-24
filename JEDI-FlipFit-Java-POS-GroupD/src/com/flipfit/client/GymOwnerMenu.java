@@ -6,7 +6,6 @@ import com.flipfit.beans.GymCentre;
 import com.flipfit.beans.Slot;
 import com.flipfit.business.GymOwnerServiceInterface; // Use the interface
 import com.flipfit.business.impl.GymOwnerService; // Use the implementation
-import com.flipfit.dao.GymUserDAOImpl;
 
 import java.sql.Time;
 import java.text.ParseException;
@@ -23,12 +22,9 @@ public class GymOwnerMenu implements GymClient {
     public void Menu() {
         Scanner scanner = new Scanner(System.in);
         GymOwnerServiceInterface gymOwnerService = new GymOwnerService(); // Use the interface type
-        GymUserDAOImpl gymUserDAO = new GymUserDAOImpl();
 
         // --- Take GymOwner details as input from the user ---
         System.out.println("--- Gym Owner Login/Registration ---");
-//        System.out.println("User Map: " + gymUserDAO.getUserMap());
-        System.out.println(gymUserDAO);
         System.out.print("Enter your Gym Owner ID (Long): ");
         long ownerId = 0L;
         while (!scanner.hasNextLong()) {

@@ -1,19 +1,21 @@
 package com.flipfit.client;
 
-import java.util.Scanner;
+import com.flipfit.beans.GymCentre;
+import com.flipfit.beans.GymCustomer;
+import com.flipfit.beans.GymOwner;
 import com.flipfit.business.impl.GymAdminService;
-
+import java.util.List;
+import java.util.Scanner;
 
 public class GymAdminMenu implements GymClient {
 
+    private static final GymAdminService gymAdminService = new GymAdminService();
+    private static final Scanner in = new Scanner(System.in);
 
-    public static GymAdminService gymAdminService = new GymAdminService();
-
-    public void Menu()  {
-        int choice = 0;
+    public void Menu() {
+        int choice;
         do {
-            Scanner in = new Scanner(System.in);
-
+            System.out.println("\n--- Admin Menu ---");
             System.out.println("1. Approve Gym Centre");
             System.out.println("2. Cancel Gym Approval");
             System.out.println("3. View Registered Gyms");
@@ -23,80 +25,74 @@ public class GymAdminMenu implements GymClient {
             System.out.println("7. Remove Gym Owner");
             System.out.println("8. Remove Gym Customer");
             System.out.println("9. Remove Gym Centre");
-            System.out.println("10. Check Payment Status");
+            // System.out.println("10. Check Payment Status"); // This function has no implementation yet
             System.out.println("11. Log out");
             System.out.print("Enter your choice: ");
 
             choice = in.nextInt();
-            System.out.println(choice);
+            in.nextLine(); // Consume the newline character
 
             switch (choice) {
                 case 1:
-                    System.out.print("Approving Gym Owner: ");
-//                    long approvalId = in.nextLong();
-//                    gymAdminService.approveGym(approvalId);
+                    System.out.print("Enter Gym Centre ID to approve: ");
+                    long approvalId = in.nextLong();
+                    gymAdminService.approveGym(approvalId);
                     break;
                 case 2:
-                    System.out.println("Cancelled approval");
-//                    long Id = in.nextLong();
-//                    gymAdminService.cancelApproval(Id);
-
+                    System.out.print("Enter Gym Centre ID to cancel approval: ");
+                    long cancelId = in.nextLong();
+                    gymAdminService.cancelGymApproval(cancelId);
                     break;
                 case 3:
-                    System.out.println("View registered gyms");
-//                    gymAdminService.viewRegisteredGyms();
+                    System.out.println("--- Registered Gyms ---");
+                    List<GymCentre> gyms = gymAdminService.viewRegisteredGyms();
+                    gyms.forEach(gym -> System.out.println("ID: " + gym.getGymId() + ", Name: " + gym.getName()));
                     break;
-
                 case 4:
-                    System.out.println("View registered gym customers");
-//                    gymAdminService.viewRegisteredGymCustomers();
+                    System.out.println("--- Registered Gym Customers ---");
+                    List<GymCustomer> customers = gymAdminService.viewRegisteredGymCustomers();
+                    customers.forEach(customer -> System.out.println("ID: " + customer.getUserId() + ", Name: " + customer.getName()));
                     break;
-
-
                 case 5:
-                    System.out.println("View registered gym owners");
+                    System.out.println("--- Registered Gym Owners ---");
+                    List<GymOwner> owners = gymAdminService.getAllRegisteredGymOwners(); // Assuming you add this to the service/DAO
+                    owners.forEach(owner -> System.out.println("ID: " + owner.getUserId() + ", Name: " + owner.getName()));
                     break;
-
                 case 6:
-                    System.out.println("Added owner to registered gyms");
-//                    long id = in.nextLong();
-//                    String name = in.next();
-//                    String email = in.next();
-//                    gymAdminService.addGymOwner(id, name, email);
-
+                    System.out.print("Enter new Owner User ID: ");
+                    long id = in.nextLong();
+                    in.nextLine(); // Consume newline
+                    System.out.print("Enter new Owner Name: ");
+                    String name = in.nextLine();
+                    System.out.print("Enter new Owner Email: ");
+                    String email = in.nextLine();
+                    gymAdminService.addGymOwner(id, name, email);
                     break;
                 case 7:
-                    System.out.println("Removed owner from registered gyms");
-//                    long removeId = in.nextLong();
-//                    gymAdminService.removeGymOwner(removeId);
-
+                    System.out.print("Enter Gym Owner ID to remove: ");
+                    long removeOwnerId = in.nextLong();
+                    gymAdminService.removeGymOwner(removeOwnerId);
                     break;
                 case 8:
-                    System.out.println("Removed owner from registered gyms");
-//                    long removeid = in.nextLong();
-//                    gymAdminService.removeGymCustomer(removeid);
-
+                    System.out.print("Enter Gym Customer ID to remove: ");
+                    long removeCustomerId = in.nextLong();
+                    gymAdminService.removeGymCustomer(removeCustomerId);
                     break;
                 case 9:
-                    System.out.println("Removed owner from registered gyms");
-//                    long removegym = in.nextLong();
-//                    gymAdminService.removeGym(removegym);
-
+                    System.out.print("Enter Gym Centre ID to remove: ");
+                    long removeGymId = in.nextLong();
+                    gymAdminService.removeGym(removeGymId);
                     break;
-
                 case 10:
-                    System.out.println("Check Payment Status");
+                    System.out.println("Check Payment Status - Not implemented.");
                     break;
-
+                case 11:
+                    System.out.println("Logging out...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
             }
-        }
-        while(choice!=11);{
-            System.out.println("Invalid choice. Please try again.");
-        }
-
-
+        } while (choice != 11); // Corrected loop condition
     }
-
-
-
 }

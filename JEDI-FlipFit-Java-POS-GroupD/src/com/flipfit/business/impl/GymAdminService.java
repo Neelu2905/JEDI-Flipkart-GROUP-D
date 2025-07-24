@@ -46,6 +46,10 @@ public class GymAdminService {
 //        // For now, it remains an empty placeholder or can be removed if not needed.
 //        System.out.println("[Admin Service] Checking payment status (implementation not mapped to DAO).");
 //    }
+    public List<GymOwner> getAllRegisteredGymOwners() {
+      System.out.println("[Admin Service] Fetching all registered gym owners."); // Corrected message
+      return gymAdminDAO.getAllRegisteredGymOwners();
+    }
 
     public List<GymCustomer> viewRegisteredGymCustomers() {
         System.out.println("[Admin Service] Fetching all registered gym customers.");

@@ -62,11 +62,12 @@ public class GymUserDAOImpl implements GymUserDAO {
     return userMap;
   }
 
+  // Existing toString() method or add it if not present
   @Override
   public String toString() {
     return "GymUserDAOImpl{" +
             "userMap=" + userMap +
-            ", roleMap=" + roleMap +
+            ", roleMap=" + roleMap.values() + // Print role names for clarity
             ", userIdCounter=" + userIdCounter +
             ", roleIdCounter=" + roleIdCounter +
             '}';
